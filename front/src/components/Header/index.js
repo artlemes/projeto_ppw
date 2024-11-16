@@ -1,4 +1,5 @@
 import styles from "./Header.module.css"
+import { Link } from "react-router-dom"
 
 
 function Header() {
@@ -7,12 +8,14 @@ function Header() {
 
             {/* <img src="#" alt="Logo"></img> colocar a logo do sistema quando tiver */}
 
-            <span>
-                Inserir logo
-            </span>
+            <Link to="/">
+                <span>
+                    Inserir logo
+                </span>
+            </Link>
 
             <nav>
-                <a href="#">Login</a>
+                <Link to="/login">Login</Link>
             </nav>
 
 
