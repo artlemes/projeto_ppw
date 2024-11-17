@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import styles from "./Login.module.css";
 import React, { useState } from 'react';
 import { Link } from "react-router-dom"
+import { fazerLogin } from '../../services/apiService';
 
 
 function Login({ onSubmit }) { 
@@ -11,10 +12,23 @@ function Login({ onSubmit }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit({ email, password });
-  };
+
+    try {
+        const response = await fazerLogin({ email, password });
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem("token", data.token);
+            alert("Login realizado com sucesso");
+        } else {
+            const errorData = await response.json();
+            alert("Erro no login: " + errorData.message);
+        }
+    } catch (error) {
+        console.error("Erro:", error);
+    }
+};
 
   return (
     <>

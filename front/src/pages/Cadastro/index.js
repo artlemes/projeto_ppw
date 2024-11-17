@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import styles from "./Cadastro.module.css";
 import React, { useState } from 'react';
+import { cadastrarUsuario } from '../../services/apiService';
 
 function Cadastro({ onSubmit }) { 
 
@@ -11,14 +12,24 @@ function Cadastro({ onSubmit }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (password !== confirmPassword) {
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (password !== confirmPassword) {
           alert('As senhas não coincidem');
           return;
-        }
-        onSubmit({ name, email, password });
-      };
+      }
+  
+      try {
+          const response = await cadastrarUsuario({ name, email, password });
+          if (response.ok) {
+              alert("Cadastro realizado com sucesso");
+          } else {
+              alert("Erro ao cadastrar");
+          }
+      } catch (error) {
+          console.error("Erro:", error);
+      }
+  };
 
   return (
     <>
