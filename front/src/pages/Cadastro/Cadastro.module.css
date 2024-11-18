@@ -1,5 +1,61 @@
 .login {
     padding-top: 10vh;
     height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f8fa;
+}
 
+.login form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 320px;
+    padding: 30px;
+    background-color: #ffffff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px; 
+}
+
+.login label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #333333; 
+    font-weight: 600;
+}
+
+.login input[type="text"],
+.login input[type="email"],
+.login input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ddd; 
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333333;
+    transition: border-color 0.3s ease; 
+}
+
+.login input[type="text"]:focus,
+.login input[type="email"]:focus,
+.login input[type="password"]:focus {
+    border-color: #0c7bc2; 
+    outline: none;
+}
+
+.login button {
+    padding: 12px;
+    background-color: #0c7bc2;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+}
+
+.login button:hover {
+    background-color: #084e7a;
 }

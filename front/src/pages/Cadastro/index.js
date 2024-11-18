@@ -36,9 +36,10 @@ function Cadastro({ onSubmit }) {
       <Header/>
       <Container>
         <section className={styles.login}>
-            <h1>Cadastro</h1>
 
             <form onSubmit={handleSubmit}>
+
+            <h1>Cadastro</h1>
             <label>
                 Nome:
                 <input

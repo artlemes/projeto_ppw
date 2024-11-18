@@ -5,9 +5,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: lavender;
+    background-color: #3c3744;
     color: black;
-    border-top: 2px solid #444444;
     padding-block: 0.1rem;
     bottom: 0;
 
@@ -16,4 +15,5 @@
 .footer h2 {
     font-size: 1rem;
     font-weight: 400;
+    color: #ffffff;
 }

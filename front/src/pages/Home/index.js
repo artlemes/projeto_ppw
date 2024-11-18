@@ -12,23 +12,23 @@ function Home() {  //renderiza
 
       <Container>
         
-      <h2>Categoria 1</h2>
+      <h2>Produtos</h2>
       <section className="cards">
         <Card></Card> {/*depois passa os parametros pra mudar cada parte, etc., altera a função tambem pra receber*/}
         <Card></Card>
         <Card></Card>
       </section>
 
-      <h2>Categoria 2</h2>
+      <h2>Moradia</h2>
       <section className="cards">
         <Card></Card>
         <Card></Card>
         <Card></Card>
       </section>
 
-      <h2>Categoria 3</h2>
+      <h2>Serviços</h2>
       <section className="cards">
-        <Card></Card> 
+        <Card></Card>
         <Card></Card>
         <Card></Card>
       </section>

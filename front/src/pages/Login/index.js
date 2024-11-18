@@ -33,11 +33,12 @@ function Login({ onSubmit }) {
   return (
     <>
       <Header/>
-      <Container>
+      <Container> 
         <section className={styles.login}>
-            <h1>Login</h1>
 
             <form onSubmit={handleSubmit}>
+
+            <h1>Login</h1>
               <label>
                 Email:
                 <input
@@ -55,9 +56,9 @@ function Login({ onSubmit }) {
                 />
               </label>
               <button type="submit">Entrar</button>
-            </form>
+              <Link to="/cadastro">Cadastra-se</Link>
 
-            <Link to="/cadastro">Cadastra-se</Link>
+            </form>
 
         </section>
 
