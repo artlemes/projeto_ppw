@@ -4,7 +4,7 @@ import cors from "cors";
 // import { config } from "dotenv";
 // import { connectToDatabase } from "./database/connect.js";
 import routes from "./routes/routes.js";
-// import { errorHandler } from "./middleware/errorHandler.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 
 // config();
 
@@ -15,7 +15,7 @@ const server = express();
 server.use(bodyParser.json());
 server.use(cors());
 server.use("/", routes);
-// server.use(errorHandler);
+server.use(errorHandler);
 
 const port = process.env.PORT || 8080;
 
