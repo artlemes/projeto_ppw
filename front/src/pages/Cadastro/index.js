@@ -5,80 +5,111 @@ import styles from "./Cadastro.module.css";
 import React, { useState } from 'react';
 import { cadastrarUsuario } from '../../services/apiService';
 
-function Cadastro({ onSubmit }) { 
+function Cadastro() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      if (password !== confirmPassword) {
-          alert('As senhas não coincidem');
-          return;
+    // Validações básicas no frontend
+    if (!name || !email || !cpf || !password || !confirmPassword) {
+      alert('Todos os campos são obrigatórios!');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert('As senhas não coincidem!');
+      return;
+    }
+
+    try {
+      // Chamada ao serviço de cadastro
+      const response = await cadastrarUsuario({ name, email, cpf, password });
+      if (response.ok) {
+        alert("Cadastro realizado com sucesso!");
+        setName('');
+        setEmail('');
+        setCpf('');
+        setPassword('');
+        setConfirmPassword('');
+      } else {
+        const errorData = await response.json();
+        alert(`Erro ao cadastrar: ${errorData.message}`);
       }
-  
-      try {
-          const response = await cadastrarUsuario({ name, email, password });
-          if (response.ok) {
-              alert("Cadastro realizado com sucesso");
-          } else {
-              alert("Erro ao cadastrar");
-          }
-      } catch (error) {
-          console.error("Erro:", error);
-      }
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao conectar com o servidor. Tente novamente mais tarde.");
+    }
   };
 
   return (
     <>
-      <Header/>
+      <Header />
       <Container>
-        <section className={styles.login}>
-
-            <form onSubmit={handleSubmit}>
-
+        <section className={styles.cadastro}>
+          <form onSubmit={handleSubmit}>
             <h1>Cadastro</h1>
+
             <label>
-                Nome:
-                <input
+              Nome:
+              <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                />
+                required
+              />
             </label>
+            
             <label>
-                Email:
-                <input
+              Email:
+              <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                />
+                required
+              />
             </label>
+            
             <label>
-                Senha:
-                <input
+              CPF:
+              <input
+                type="text"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+                maxLength="11"
+                required
+              />
+            </label>
+            
+            <label>
+              Senha:
+              <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                />
+                required
+              />
             </label>
+            
             <label>
-                Confirmar Senha:
-                <input
+              Confirmar Senha:
+              <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                />
+                required
+              />
             </label>
+            
             <button type="submit">Cadastrar</button>
-            </form>
-
+          </form>
         </section>
-
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 }
