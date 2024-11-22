@@ -21,6 +21,7 @@ function Login({ onSubmit }) {
             const data = await response.json();
             localStorage.setItem("token", data.token);
             alert("Login realizado com sucesso");
+            // redireciona depois pro dashboard
         } else {
             const errorData = await response.json();
             alert("Erro no login: " + errorData.message);
