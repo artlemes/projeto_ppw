@@ -1,0 +1,28 @@
+Sugestão de uso no projeto galera:
+import useSendData from '../../Hooks/useSendData';
+
+const MeuComponenteTeste = ({ meusParametros }) => {
+    const { sendData, loading, error, data } = useSendData();
+    // sendData('endpoint', formData, 'POST'); é a função para o envio dos dados
+        // 'endpoint' é a rota final do backend
+        // formData é o objeto com os dados a serem enviados
+        // 'POST' ou 'GET' dependendo da requisição
+
+    const handleLogin = () => {
+        const formData = new FormData(); // Instanciação de um objeto FormData para agrupar os dados
+        formData.append('action', 'login'); // Essas 3 linhas são os campos do formulário "html" a serem enviados
+        formData.append('email', email); // Essas 3 linhas são os campos do formulário "html" a serem enviados
+        formData.append('password', password); // Essas 3 linhas são os campos do formulário "html" a serem enviados
+
+        sendData('user', formData, 'POST'); // Faz a requisição enviando os dados para o backend
+
+        // Abaixo: Verificação se a requisição foi atendida com sucesso (Neste caso o exemplo de uma autenticação)
+        if (data && data.authenticated) {
+            localStorage.setItem('token', data.token); // Armazena o token na localStorage
+            setIsAuthenticated(true); // Ativa a autenticação
+        }
+    };
+
+    //continuação do componente
+};
+export default MeuComponenteTeste;
