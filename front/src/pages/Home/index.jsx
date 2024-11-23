@@ -1,4 +1,3 @@
-import Banner from "../../components/Banner";
 import BannerRSuite from "../../components/BannerRSuite/BannerRSuite";
 import Card from "../../components/Card";
 import Container from "../../components/Container";
