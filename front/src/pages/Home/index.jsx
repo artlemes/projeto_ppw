@@ -1,4 +1,5 @@
 import Banner from "../../components/Banner";
+import BannerRSuite from "../../components/BannerRSuite/BannerRSuite";
 import Card from "../../components/Card";
 import Container from "../../components/Container";
 import Footer from "../../components/Footer";
@@ -8,7 +9,7 @@ function Home() {  //renderiza
   return (
     <>
       <Header></Header>
-      <Banner></Banner>
+      <BannerRSuite></BannerRSuite>
 
       <Container>
         
