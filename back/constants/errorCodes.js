@@ -7,6 +7,10 @@ export const USUARIO_ERROR = {
     statusCode: 400,
     message: "Usuário já existe",
   },
+  CAMPOS_NAO_PREENCHIDOS: {
+    statusCode: 422,
+    message: "Os campos não foram preenchidos corretamente"
+  }
 };
 
 export const ANUNCIO_ERROR = {
