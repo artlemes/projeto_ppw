@@ -7,6 +7,7 @@ Este é o repositório do **Front-End** do projeto **Serviços UFSC**.
 - **React.js**
 - **CSS**
 - **JavaScript**
+- **RSuite**
 
 ## 📋 Pré-requisitos
 
@@ -35,6 +36,11 @@ Para que o front-end funcione corretamente, o backend do projeto deve estar em e
 3. **Instale as dependências:**
    ```bash
    npm install
+   ```
+
+4. **Instale o RSuite:**
+   ```bash
+   npm install rsuite
    ```
  
 ## 🚀 Executando o Projeto
