@@ -2,7 +2,7 @@
 
 Este é o repositório do **Front-End** do projeto **Serviços UFSC**.
 
-## 📋 Tecnologias Utilizadas
+## 💻 Tecnologias Utilizadas
 
 - **React.js**
 - **CSS**
