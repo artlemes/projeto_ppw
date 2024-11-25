@@ -16,11 +16,6 @@ Certifique-se de que você tenha instalado em sua máquina:
 - [Node.js](https://nodejs.org/)
 - **npm**
 
-### 📋 Requisitos do Back-End
-
-Para que o front-end funcione corretamente, o backend do projeto deve estar em execução. Siga as instruções no repositório do backend:  
-[**Backend do Projeto Serviços UFSC**](https://github.com/artlemes/projeto_ppw)
-
 ## 🛠️ Instalação
 
 1. **Clone o repositório:**
