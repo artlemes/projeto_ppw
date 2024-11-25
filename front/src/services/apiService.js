@@ -1,7 +1,14 @@
+// Configuração da URL base da API
+//const API_BASE_URL = "http://127.0.0.1:8080/api";
+const API_BASE_URL = "http://127.0.0.1:8080";
 
-
+/*
+ * Função para cadastrar um usuário.
+ * @param {Object} userData - Dados do usuário a serem cadastrados.
+ * @returns {Promise<Response>} Resposta da API.
+ */
 export const cadastrarUsuario = async (userData) => {
-    return fetch('http://localhost:3000/api/cadastro', {  /*arrumar o caminho nao sei aaaaaaaa*/
+    return fetch(`${API_BASE_URL}/cadastro`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -10,8 +17,13 @@ export const cadastrarUsuario = async (userData) => {
     });
 };
 
+/*
+ * Função para realizar login.
+ * @param {Object} userData - Dados do usuário para login.
+ * @returns {Promise<Response>} Resposta da API.
+ */
 export const fazerLogin = async (userData) => {
-    return fetch('http://localhost:3000/api/login', {
+    return fetch(`${API_BASE_URL}/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
