@@ -69,6 +69,24 @@ class UsuarioController {
     return res.status(200).json(usuario);
   }
 
+  async lerTodosUsuarios(req, res) {
+    try {
+      // Busca todos os documentos na coleção, omitindo o campo "senha"
+      const usuarios = await usuarioModel.find({}, "-senha");
+  
+      // Verifica se há usuários no banco
+      if (!usuarios || usuarios.length === 0) {
+        return res.status(404).json({ error: "Nenhum usuário encontrado." });
+      }
+  
+      // Retorna a lista de usuários
+      return res.status(200).json(usuarios);
+    } catch (error) {
+      console.error("Erro ao listar usuários:", error);
+      return res.status(500).json({ error: "Erro interno do servidor." });
+    }
+  }
+
   async deletarUsuario(req, res) {
     //adquirindo o id da requisicao
     const id = req.params.id;

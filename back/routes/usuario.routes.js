@@ -1,17 +1,20 @@
 import { Router } from "express";
 import UsuarioController from "../controllers/usuario.controller.js";
 import { tryCatch } from "../utils/tryCatch.js";
+import usuarioController from "../controllers/usuario.controller.js";
 
 const usuarioRotas = Router();
 
-usuarioRotas.post("/login", tryCatch(UsuarioController.loginUsuario));
+usuarioRotas.post("/login", tryCatch(UsuarioController.loginUsuario)); // Login
 
-usuarioRotas.post("/criar", tryCatch(UsuarioController.criarUsuario));
+usuarioRotas.post("/criar", tryCatch(UsuarioController.criarUsuario)); // Criar usuário
 
-usuarioRotas.post("/deletar", tryCatch(UsuarioController.deletarUsuario));
+usuarioRotas.get("/ler/:id", tryCatch(UsuarioController.lerUsuario)); // Ler um usuário específico
 
-usuarioRotas.post("/update", tryCatch(UsuarioController.updateUsuario));
+usuarioRotas.get("/lertodos", tryCatch(usuarioController.lerTodosUsuarios)) // Ler todos usuários
 
-usuarioRotas.get("/ler", tryCatch(UsuarioController.lerUsuario));
+usuarioRotas.put("/:id", tryCatch(UsuarioController.updateUsuario)); // Atualizar usuário
+
+usuarioRotas.delete("/:id", tryCatch(UsuarioController.deletarUsuario)); // Deletar usuário
 
 export default usuarioRotas;

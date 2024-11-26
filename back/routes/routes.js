@@ -10,7 +10,7 @@ const routes = Router();
 routes.post("/login", tryCatch(UsuarioController.loginUsuario));
 
 // Rota privada
-routes.use("/user", usuarioRotas);
+routes.use("/usuario", usuarioRotas);
 
 // 404 - Not Found
 routes.use((req, res) => {
