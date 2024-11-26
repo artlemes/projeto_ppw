@@ -14,20 +14,20 @@ const usuarioSchema = new Schema(
       unique: true,
       lowercase: true,
       trim: true,
-      validate: {
-        validator: {},
-        message: (props) => `${props.value} não é um email válido`,
-      },
+      // validate: {
+      //   validator: {},
+      //   message: (props) => `${props.value} não é um email válido`,
+      // },
     },
     cpf: {
       type: String,
       required: [true, "O CPF é necessário!"],
       unique: true,
       trim: true,
-      validate: {
-        validator: {},
-        message: (props) => `${props.value} não é um cpf válido`,
-      },
+      // validate: {
+      //   validator: {},
+      //   message: (props) => `${props.value} não é um cpf válido`,
+      // },
     },
     senha: {
       type: String,
@@ -40,4 +40,4 @@ const usuarioSchema = new Schema(
   }
 );
 
-export const usuariosModel = mongoose.model("Usuarios", usuarioSchema);
+export const usuarioModel = mongoose.model("Usuarios", usuarioSchema);

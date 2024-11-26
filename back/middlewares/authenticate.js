@@ -1,5 +1,5 @@
 import ServerError from "../ServerError.js";
-import { TOKEN_ERROR } from "../constants/errorCodes.js";
+//import { TOKEN_ERROR } from "../constants/errorCodes.js";
 import jwt from "jsonwebtoken";
 
 // Middleware to check the token sent by the user
