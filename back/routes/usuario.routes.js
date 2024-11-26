@@ -1,7 +1,6 @@
 import { Router } from "express";
 import UsuarioController from "../controllers/usuario.controller.js";
 import { tryCatch } from "../utils/tryCatch.js";
-import usuarioController from "../controllers/usuario.controller.js";
 
 const usuarioRotas = Router();
 
@@ -11,7 +10,7 @@ usuarioRotas.post("/criar", tryCatch(UsuarioController.criarUsuario)); // Criar 
 
 usuarioRotas.get("/ler/:id", tryCatch(UsuarioController.lerUsuario)); // Ler um usuário específico
 
-usuarioRotas.get("/lertodos", tryCatch(usuarioController.lerTodosUsuarios)) // Ler todos usuários
+usuarioRotas.get("/lertodos", tryCatch(UsuarioController.lerTodosUsuarios)) // Ler todos usuários
 
 usuarioRotas.put("/:id", tryCatch(UsuarioController.updateUsuario)); // Atualizar usuário
 

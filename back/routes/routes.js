@@ -3,6 +3,7 @@ import UsuarioController from "../controllers/usuario.controller.js";
 import { checkToken } from "../middlewares/authenticate.js";
 import { tryCatch } from "../utils/tryCatch.js";
 import usuarioRotas from "./usuario.routes.js";
+import categoriaRotas from "./categoria.routes.js";
 
 const routes = Router();
 
@@ -11,6 +12,8 @@ routes.post("/login", tryCatch(UsuarioController.loginUsuario));
 
 // Rota privada
 routes.use("/usuario", usuarioRotas);
+
+routes.use("/categoria", categoriaRotas);
 
 // 404 - Not Found
 routes.use((req, res) => {

@@ -33,4 +33,8 @@ export const CATEGORIA_ERROR = {
     statusCode: 400,
     message: "Categoria já existe",
   },
+  CAMPOS_NAO_PREENCHIDOS: {
+    statusCode: 422,
+    message: "Os campos não foram preenchidos corretamente"
+  }
 };

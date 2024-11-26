@@ -56,7 +56,7 @@ class UsuarioController {
   }
 
   async lerUsuario(req, res) {
-    const id = req.userId;
+    const id = req.params.id;
 
     //acho o usuario no banco mas removo a senha do retorno
     //excluo mais algo do retorno?
