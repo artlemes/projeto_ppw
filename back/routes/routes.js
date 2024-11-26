@@ -1,20 +1,15 @@
 import { Router } from "express";
+import { UsuarioController } from "../controllers/usuario.controller.js";
+import { checkToken } from "../middlewares/authenticate.js";
+import { tryCatch } from "../utils/tryCatch.js";
 
 const routes = Router();
 
-routes.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 // Rota pública
-routes.post("/login", (req, res) => {
-  res.send("Login");
-});
+routes.post("/login", tryCatch(UsuarioController.loginUsuario));
 
-// Rotas privadas
-routes.get("/users", (req, res) => {
-  res.send("Users");
-});
+// Rota privada
+routes.use("/user", usuarioRotas);
 
 // 404 - Not Found
 routes.use((req, res) => {
