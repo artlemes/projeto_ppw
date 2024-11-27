@@ -18,16 +18,16 @@ const anuncioSchema = new Schema(
       type: Number,
       required: [true, "O preço é necessário!"],
     },
-    categoria: {
+    categoria_id: {
       type: Schema.Types.ObjectId,
       ref: "Categorias",
       required: [true, "A categoria é necessária!"],
     },
-    usuario: {
-      type: Schema.Types.ObjectId,
-      ref: "Usuarios",
-      required: [true, "O usuário é necessário!"],
-    },
+    // usuario_id: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Usuarios",
+    //   required: [true, "O usuário é necessário!"],
+    // },
     // imagens: {
     //     type: [String],
     //     required: [true, "A imagem é necessária!"],

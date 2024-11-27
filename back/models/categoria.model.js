@@ -14,6 +14,24 @@ const categoriaSchema = new Schema(
       trim: true,
       minlength: [2, "A descrição precisa ter pelo menos 2 caracteres!"],
     },
+    // anuncios: [
+    //   {
+    //     anuncio_id: {
+    //       type: Schema.Types.ObjectId,
+    //       ref: "Anuncios",
+    //       required: true,
+    //     },
+    //     nome: {
+    //       type: String,
+    //       required: true,
+    //     },
+    //     // usuario_id: {
+    //     //   type: Schema.Types.ObjectId,
+    //     //   ref: "Usuarios",
+    //     //   required: true,
+    //     // },
+    //   },
+    // ],
   },
   {
     timestamps: true,
