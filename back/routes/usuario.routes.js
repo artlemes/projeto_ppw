@@ -4,16 +4,16 @@ import { tryCatch } from "../utils/tryCatch.js";
 
 const usuarioRotas = Router();
 
-usuarioRotas.post("/login", tryCatch(UsuarioController.loginUsuario)); // Login
+usuarioRotas.post("/", tryCatch(UsuarioController.criarUsuario));
 
-usuarioRotas.post("/criar", tryCatch(UsuarioController.criarUsuario)); // Criar usuário
+usuarioRotas.get("/buscar", tryCatch(UsuarioController.buscarUsuarios));
 
-usuarioRotas.get("/ler/:id", tryCatch(UsuarioController.lerUsuario)); // Ler um usuário específico
+usuarioRotas.get("/logado", tryCatch(UsuarioController.buscarUsuarioLogado));
 
-usuarioRotas.get("/lertodos", tryCatch(UsuarioController.lerTodosUsuarios)) // Ler todos usuários
+usuarioRotas.patch("/:id", tryCatch(UsuarioController.atualizarUsuario));
 
-usuarioRotas.put("/:id", tryCatch(UsuarioController.updateUsuario)); // Atualizar usuário
+usuarioRotas.delete("/:id", tryCatch(UsuarioController.excluirUsuario));
 
-usuarioRotas.delete("/:id", tryCatch(UsuarioController.deletarUsuario)); // Deletar usuário
+usuarioRotas.put("/senha/:id", tryCatch(UsuarioController.atualizarSenha));
 
 export default usuarioRotas;

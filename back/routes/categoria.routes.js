@@ -4,14 +4,12 @@ import { tryCatch } from "../utils/tryCatch.js";
 
 const categoriaRotas = Router();
 
-categoriaRotas.post("/criar", tryCatch(CategoriaController.criarCategoria)); // Criar categoria
+categoriaRotas.post("/", tryCatch(CategoriaController.criarCategoria));
 
-categoriaRotas.get("/ler/:id", tryCatch(CategoriaController.lerCategoria)); // Ler uma categoria específica
+categoriaRotas.get("/buscar", tryCatch(CategoriaController.buscarCategorias));
 
-categoriaRotas.get("/lertodos", tryCatch(CategoriaController.lerTodasCategorias)) // Ler todas categoria
+categoriaRotas.patch("/:id", tryCatch(CategoriaController.atualizarCategoria));
 
-categoriaRotas.put("/:id", tryCatch(CategoriaController.updateCategoria)); // Atualizar categoria
-
-categoriaRotas.delete("/:id", tryCatch(CategoriaController.deletarCategoria)); // Deletar categoria
+categoriaRotas.delete("/:id", tryCatch(CategoriaController.excluirCategoria));
 
 export default categoriaRotas;

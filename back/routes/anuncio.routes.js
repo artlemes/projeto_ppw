@@ -4,14 +4,12 @@ import { tryCatch } from "../utils/tryCatch.js";
 
 const anuncioRotas = Router();
 
-anuncioRotas.post("/criar", tryCatch(AnuncioController.criarAnuncio)); // Criar anuncio
+anuncioRotas.post("/", tryCatch(AnuncioController.criarAnuncio));
 
-anuncioRotas.get("/ler/:id", tryCatch(AnuncioController.lerAnuncio)); // Ler um anuncio específica
+anuncioRotas.get("/buscar", tryCatch(AnuncioController.buscarAnuncios));
 
-anuncioRotas.get("/lertodos", tryCatch(AnuncioController.lerTodosAnuncio)) // Ler todos anuncio
+anuncioRotas.patch("/:id", tryCatch(AnuncioController.atualizarAnuncio));
 
-anuncioRotas.put("/:id", tryCatch(AnuncioController.updateAnuncio)); // Atualizar anuncio
-
-anuncioRotas.delete("/:id", tryCatch(AnuncioController.deletarAnuncio)); // Deletar anuncio
+anuncioRotas.delete("/:id", tryCatch(AnuncioController.excluirAnuncio));
 
 export default anuncioRotas;

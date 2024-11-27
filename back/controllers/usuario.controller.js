@@ -1,8 +1,10 @@
-//importei os que temos por enquanto
-import { usuarioModel } from "../models/usuario.model.js.js";
+import { usuarioModel } from "../models/usuario.model.js";
 import { anuncioModel } from "../models/anuncio.model.js";
 import ServerError from "../ServerError.js";
 import { USUARIO_ERROR } from "../constants/errorCodes.js";
+import { validateId } from "../utils/validateId.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 class UsuarioController {
   async loginUsuario(req, res) {
@@ -20,9 +22,18 @@ class UsuarioController {
       throw new ServerError(USUARIO_ERROR.USUARIO_NAO_ENCONTRADO);
     }
 
-    //testar a senha ainda nao sei como faz
+    const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+    if (!senhaCorreta) {
+      throw new ServerError(USUARIO_ERROR.LOGIN_INVALIDO);
+    }
 
-    return res.status(200).send("Usuario logado com sucesso");
+    // Gerar token de autenticação
+    const secret = process.env.JWT_SECRET;
+    const token = jwt.sign({ id: usuario._id }, secret, {
+      expiresIn: "1h",
+    });
+
+    return res.status(200).json({ token });
   }
 
   async criarUsuario(req, res) {
@@ -35,13 +46,12 @@ class UsuarioController {
     const usuarioExiste = await usuarioModel.findOne({
       $or: [{ email }, { cpf }],
     });
-
     if (usuarioExiste) {
       throw new ServerError(USUARIO_ERROR.USUARIO_JA_EXISTE);
     }
 
-    //aqui ha o espaço para criptografar a senha
-    const hashedSenha = senha;
+    const salt = await bcrypt.genSalt(12);
+    const hashedSenha = await bcrypt.hash(senha, salt);
 
     const novoUsuario = {
       nome,
@@ -55,12 +65,32 @@ class UsuarioController {
     return res.status(204).send();
   }
 
-  async lerUsuario(req, res) {
-    const id = req.params.id;
+  async buscarUsuarios(req, res) {
+    const { id, cpf } = req.query;
+    let query = {};
 
-    //acho o usuario no banco mas removo a senha do retorno
-    //excluo mais algo do retorno?
-    const usuario = await usuarioModel.findById(id, "-senha");
+    if (id) {
+      validateId(id);
+      query._id = id;
+    }
+
+    if (cpf) {
+      query.cpf = cpf;
+    }
+
+    const usuarios = await usuarioModel.findById(id, "-senha -__v");
+    if (!usuarios) {
+      // throw new ServerError(USUARIO_ERROR.USUARIO_NAO_ENCONTRADO);
+      return res.status(200).json({ message: "Nenhum usuário foi encontrado" });
+    }
+
+    return res.status(200).json(usuarios);
+  }
+
+  async buscarUsuarioLogado(req, res) {
+    const id = req.usuarioId;
+
+    const usuario = await usuarioModel.findById(id, "-senha -__v");
 
     if (!usuario) {
       throw new ServerError(USUARIO_ERROR.USUARIO_NAO_ENCONTRADO);
@@ -69,25 +99,7 @@ class UsuarioController {
     return res.status(200).json(usuario);
   }
 
-  async lerTodosUsuarios(req, res) {
-    try {
-      // Busca todos os documentos na coleção, omitindo o campo "senha"
-      const usuarios = await usuarioModel.find({}, "-senha");
-  
-      // Verifica se há usuários no banco
-      if (!usuarios || usuarios.length === 0) {
-        return res.status(404).json({ error: "Nenhum usuário encontrado." });
-      }
-  
-      // Retorna a lista de usuários
-      return res.status(200).json(usuarios);
-    } catch (error) {
-      console.error("Erro ao listar usuários:", error);
-      return res.status(500).json({ error: "Erro interno do servidor." });
-    }
-  }
-
-  async deletarUsuario(req, res) {
+  async excluirUsuario(req, res) {
     //adquirindo o id da requisicao
     const id = req.params.id;
 
@@ -101,7 +113,7 @@ class UsuarioController {
     return res.status(204).send();
   }
 
-  async updateUsuario(req, res) {
+  async atualizarUsuario(req, res) {
     //adquirindo o id da requisicao
     const id = req.params.id;
 
@@ -110,6 +122,30 @@ class UsuarioController {
     });
 
     // retornando um status 204
+    return res.status(204).send();
+  }
+
+  async atualizarSenha(req, res) {
+    const id = req.usuarioId;
+
+    const { senhaAntiga, senhaNova } = req.body;
+
+    if (req.usuarioId != id) {
+      throw new ServerError(TOKEN_ERROR.ACESSO_NEGADO);
+    }
+
+    const usuario = await usuarioModel.findById(id);
+
+    const senhaCorreta = await bcrypt.compare(senhaAntiga, usuario.senha);
+    if (!senhaCorreta) {
+      throw new ServerError(USUARIO_ERROR.SENHA_INCORRETA);
+    }
+
+    const salt = await bcrypt.genSalt(12);
+    const hashedSenha = await bcrypt.hash(senhaNova, salt);
+
+    await usuarioModel.findByIdAndUpdate(id, { senha: hashedSenha });
+
     return res.status(204).send();
   }
 }
