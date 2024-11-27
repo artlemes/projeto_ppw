@@ -4,6 +4,7 @@ import { checkToken } from "../middlewares/authenticate.js";
 import { tryCatch } from "../utils/tryCatch.js";
 import usuarioRotas from "./usuario.routes.js";
 import categoriaRotas from "./categoria.routes.js";
+import anuncioRotas from "./anuncio.routes.js";
 
 const routes = Router();
 
@@ -14,6 +15,8 @@ routes.post("/login", tryCatch(UsuarioController.loginUsuario));
 routes.use("/usuario", usuarioRotas);
 
 routes.use("/categoria", categoriaRotas);
+
+routes.use("/anuncio", anuncioRotas);
 
 // 404 - Not Found
 routes.use((req, res) => {
