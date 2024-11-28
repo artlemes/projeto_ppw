@@ -1,0 +1,54 @@
+[
+  {
+    "nome": "João",
+    "sobrenome": "Silva",
+    "email": "joao.silva@example.com",
+    "cpf": "123.456.789-00",
+    "telefone": "(11) 98765-4321",
+    "senha": "senha123",
+    "papel": "usuario",
+    "anuncios": [
+      {
+        "anuncio_id": "64f1234567890abcde123456"
+      }
+    ]
+  },
+  {
+    "nome": "Maria",
+    "sobrenome": "Oliveira",
+    "email": "maria.oliveira@example.com",
+    "cpf": "987.654.321-00",
+    "telefone": "(21) 91234-5678",
+    "senha": "senha456",
+    "papel": "admin",
+    "anuncios": [
+      {
+        "anuncio_id": "64f1234567890abcde654321"
+      }
+    ]
+  },
+  {
+    "nome": "Carlos",
+    "sobrenome": "Souza",
+    "email": "carlos.souza@example.com",
+    "cpf": "111.222.333-44",
+    "telefone": "(31) 94567-1234",
+    "senha": "senha789",
+    "papel": "usuario",
+    "anuncios": []
+  },
+  {
+    "nome": "",
+    "sobrenome": "Pereira",
+    "email": "usuario.invalido@example.com",
+    "cpf": "123.456.789-00",
+    "telefone": "(11) 91234-5678",
+    "senha": "senha1",
+    "papel": "usuario",
+    "anuncios": [
+      {
+        "anuncio_id": "1234567890abcdef"
+      }
+    ]
+  }
+]

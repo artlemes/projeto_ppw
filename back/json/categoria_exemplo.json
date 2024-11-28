@@ -1,0 +1,34 @@
+[
+  {
+    "nome": "Eletrônicos",
+    "descricao": "Produtos eletrônicos de última geração.",
+    "anuncios": [
+      {
+        "anuncio_id": "64f1234567890abcde123456"
+      }
+    ]
+  },
+  {
+    "nome": "Roupas",
+    "descricao": "Roupas e acessórios para todas as idades.",
+    "anuncios": [
+      {
+        "anuncio_id": "64f1234567890abcde654321"
+      }
+    ]
+  },
+  {
+    "nome": "Livros",
+    "descricao": "Livros de diversos gêneros literários.",
+    "anuncios": []
+  },
+  {
+    "nome": "Móveis",
+    "descricao": "Móveis para todos os tipos de ambientes.",
+    "anuncios": [
+      {
+        "anuncio_id": "1234567890abcdef"
+      }
+    ]
+  }
+]
