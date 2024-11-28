@@ -9,8 +9,8 @@ export const USUARIO_ERROR = {
   },
   CAMPOS_NAO_PREENCHIDOS: {
     statusCode: 422,
-    message: "Os campos não foram preenchidos corretamente"
-  }
+    message: "Os campos não foram preenchidos corretamente",
+  },
 };
 
 export const ANUNCIO_ERROR = {
@@ -35,6 +35,13 @@ export const CATEGORIA_ERROR = {
   },
   CAMPOS_NAO_PREENCHIDOS: {
     statusCode: 422,
-    message: "Os campos não foram preenchidos corretamente"
-  }
+    message: "Os campos não foram preenchidos corretamente",
+  },
+};
+
+export const TOKEN_ERROR = {
+  TOKEN_NAO_ENVIADO: {
+    statusCode: 401,
+    message: "Token não enviado",
+  },
 };
