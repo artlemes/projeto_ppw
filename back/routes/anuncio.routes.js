@@ -5,7 +5,7 @@ import { checkToken } from "../middlewares/authenticate.js";
 
 const anuncioRotas = Router();
 
-anuncioRotas.post("/", tryCatch(AnuncioController.criarAnuncio));
+anuncioRotas.post("/", checkToken, tryCatch(AnuncioController.criarAnuncio));
 
 anuncioRotas.get("/buscar", tryCatch(AnuncioController.buscarAnuncios));
 
