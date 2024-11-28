@@ -8,7 +8,8 @@ const API_BASE_URL = "http://127.0.0.1:8080";
  * @returns {Promise<Response>} Resposta da API.
  */
 export const cadastrarUsuario = async (userData) => {
-    return fetch(`${API_BASE_URL}/cadastro`, {
+    //return fetch(`${API_BASE_URL}/cadastro`, { rota que tava usando antes, não sei certo qual endpoint usar, mas antes com esse aqui tava danto undefined
+    return fetch(`${API_BASE_URL}/usuario`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -10,13 +10,13 @@ import { fazerLogin } from '../../services/apiService';
 function Login({ onSubmit }) { 
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-        const response = await fazerLogin({ email, password });
+        const response = await fazerLogin({ email, senha });
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem("token", data.token);
@@ -52,8 +52,8 @@ function Login({ onSubmit }) {
                 Senha:
                 <input
                   type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
                 />
               </label>
               <button type="submit">Entrar</button>

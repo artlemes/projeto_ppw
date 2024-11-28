@@ -14,21 +14,26 @@ function Cadastro() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validações básicas no frontend
+  
     if (!name || !email || !cpf || !password || !confirmPassword) {
       alert('Todos os campos são obrigatórios!');
       return;
     }
-
+  
     if (password !== confirmPassword) {
       alert('As senhas não coincidem!');
       return;
     }
-
+  
     try {
-      // Chamada ao serviço de cadastro
-      const response = await cadastrarUsuario({ name, email, cpf, password });
+      const userData = {
+        nome: name,      // tava dando erro com name
+        email: email,
+        cpf: cpf,
+        senha: password, // tava dando erro com password
+      };
+  
+      const response = await cadastrarUsuario(userData);
       if (response.ok) {
         alert("Cadastro realizado com sucesso!");
         setName('');
@@ -45,6 +50,7 @@ function Cadastro() {
       alert("Erro ao conectar com o servidor. Tente novamente mais tarde.");
     }
   };
+  
 
   return (
     <>
