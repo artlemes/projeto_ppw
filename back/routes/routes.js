@@ -8,6 +8,11 @@ import anuncioRotas from "./anuncio.routes.js";
 
 const routes = Router();
 
+// Rota do Hello World
+routes.get("/", (req, res) => {
+  res.send({ Msg: "Hello World!" });
+});
+
 // Rota pública
 routes.post("/login", tryCatch(UsuarioController.loginUsuario));
 
