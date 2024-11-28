@@ -1,6 +1,6 @@
 import { Router } from "express";
 import UsuarioController from "../controllers/usuario.controller.js";
-import { checkToken } from "../middlewares/authenticate.js";
+// import { checkToken } from "../middlewares/authenticate.js";
 import { tryCatch } from "../utils/tryCatch.js";
 import usuarioRotas from "./usuario.routes.js";
 import categoriaRotas from "./categoria.routes.js";
