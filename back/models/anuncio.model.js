@@ -46,4 +46,20 @@ const anuncioSchema = new Schema(
   }
 );
 
+// Middleware para validar a data de expiração
+// anuncioSchema.pre("save", function (next) {
+//   if (this.isModified("data_expiracao") && this.data_expiracao < new Date()) {
+//     return next(new Error("A data de expiração não pode ser no passado."));
+//   }
+//   next();
+// });
+
+// Middleware para validar a data de expiração em atualizações (caso seja alterada)
+// anuncioSchema.pre("findOneAndUpdate", function (next) {
+//   if (this._update.data_expiracao && this._update.data_expiracao < new Date()) {
+//     return next(new Error("A data de expiração não pode ser no passado."));
+//   }
+//   next();
+// });
+
 export const anuncioModel = mongoose.model("Anuncios", anuncioSchema);
