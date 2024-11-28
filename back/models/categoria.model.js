@@ -7,31 +7,33 @@ const categoriaSchema = new Schema(
       required: [true, "O nome é necessário!"],
       trim: true,
       minlength: [2, "O nome precisa ter pelo menos 2 caracteres!"],
+      maxlength: [50, "O nome precisa ter no máximo 50 caracteres!"],
     },
     descricao: {
       type: String,
       required: [true, "A descrição é necessária!"],
       trim: true,
       minlength: [2, "A descrição precisa ter pelo menos 2 caracteres!"],
+      maxlength: [100, "A descrição precisa ter no máximo 100 caracteres!"],
     },
-    // anuncios: [
-    //   {
-    //     anuncio_id: {
-    //       type: Schema.Types.ObjectId,
-    //       ref: "Anuncios",
-    //       required: true,
-    //     },
-    //     nome: {
-    //       type: String,
-    //       required: true,
-    //     },
-    //     // usuario_id: {
-    //     //   type: Schema.Types.ObjectId,
-    //     //   ref: "Usuarios",
-    //     //   required: true,
-    //     // },
-    //   },
-    // ],
+    anuncios: [
+      {
+        anuncio_id: {
+          type: Schema.Types.ObjectId,
+          ref: "Anuncios",
+          required: true,
+          validate: {
+            validator: async function (anuncio_id) {
+              const anuncio = await mongoose
+                .model("Anuncios")
+                .findById(anuncio_id);
+              return anuncio !== null;
+            },
+            message: (props) => `${props.value} não é um anúncio válido!`,
+          },
+        },
+      },
+    ],
   },
   {
     timestamps: true,
