@@ -27,7 +27,7 @@ class UsuarioController {
 
     // Gera o token de autenticação
     const secret = process.env.JWT_SECRET;
-    const token = jwt.sign({ id: usuario._id }, secret, {
+    const token = jwt.sign({ id: usuario._id, papel: usuario.papel }, secret, {
       expiresIn: "1h",
     });
 
@@ -169,10 +169,22 @@ class UsuarioController {
     const id = req.params.id;
     validateId(id);
 
-    // excluindo os anuncios do usuario
-    await anuncioModel.deleteMany({ usuario_id: id });
+    // Verifica se o usuário possui anúncios associados
+    const anunciosExistentes = await anuncioModel.find({ usuario_id: id });
+    if (anunciosExistentes.length > 0) {
+      await anuncioModel.deleteMany({ usuario_id: id });
 
-    await usuarioModel.findByIdAndDelete(id);
+      // Atualiza as categorias, removendo os anúncios excluídos
+      await categoriaModel.updateMany(
+        { anuncios: { $elemMatch: { usuario_id: id } } },
+        { $pull: { anuncios: { usuario_id: id } } }
+      );
+    }
+
+    const usuarioExcluido = await usuarioModel.findByIdAndDelete(id);
+    if (!usuarioExcluido) {
+      throw new ServerError(USUARIO_ERROR.USUARIO_NAO_ENCONTRADO);
+    }
 
     return res.status(200).json({ message: "Usuário excluído com sucesso!" });
   }

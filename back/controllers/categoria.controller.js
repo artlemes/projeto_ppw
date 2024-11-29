@@ -24,7 +24,7 @@ class CategoriaController {
 
     await categoriaModel.create(novaCategoria);
 
-    return res.status(204).send();
+    return res.status(201).json({ message: "Categoria criada com sucesso!" });
   }
 
   async buscarCategorias(req, res) {
@@ -36,38 +36,45 @@ class CategoriaController {
       query._id = id;
     }
 
-    if (nome) {
-      query.nome = nome;
+    if (nome) query.nome = nome;
+
+    // Busca no banco de dados
+    let categorias;
+    if (id) {
+      categorias = await categoriaModel.findById(query, "-__v");
+    } else {
+      categorias = await categoriaModel.find(query, "-__v");
     }
 
-    const categorias = await categoriaModel.findById(query, "-__v");
-
-    if (!categorias) {
+    if (!categorias || (Array.isArray(categorias) && categorias.length === 0)) {
       // throw new ServerError(CATEGORIA_ERROR.CATEGORIA_NAO_ENCONTRADA);
       return res
-        .status(200)
+        .status(404)
         .json({ message: "Nenhuma categoria foi encontrada" });
     }
 
     return res.status(200).json(categorias);
   }
 
-  async excluirCategoria(req, res) {
-    const id = req.params.id;
+  async listarAnunciosPorCategoria(req, res) {
+    const { id } = req.params;
+    validateId(id);
 
-    await anuncioModel.deleteMany({ categoria_id: id });
-
-    const categoriaExcluida = await categoriaModel.findByIdAndDelete(id);
-    if (!categoriaExcluida) {
+    const categoria = await categoriaModel
+      .findById(id)
+      .populate("anuncios", "-__v");
+    if (!categoria) {
       throw new ServerError(CATEGORIA_ERROR.CATEGORIA_NAO_ENCONTRADA);
     }
 
-    return res.status(204).send();
+    return res.status(200).json(categoria.anuncios);
   }
 
   async atualizarCategoria(req, res) {
     const id = req.params.id;
+    validateId(id);
 
+    // Atualiza a categoria com os dados fornecidos
     const categoriaAtualizada = await categoriaModel.findByIdAndUpdate(
       id,
       req.body,
@@ -77,10 +84,40 @@ class CategoriaController {
     );
 
     if (!categoriaAtualizada) {
+      // return res
+      //   .status(404)
+      //   .json({ message: "Categoria não encontrada para atualização." });
       throw new ServerError(CATEGORIA_ERROR.CATEGORIA_NAO_ENCONTRADA);
     }
 
-    return res.status(204).send();
+    return res.status(200).json({
+      message: "Categoria atualizada com sucesso!",
+      // categoria: categoriaAtualizada,
+    });
+  }
+
+  async excluirCategoria(req, res) {
+    const id = req.params.id;
+    validateId(id);
+
+    // Verifica se a categoria possui anúncios associados
+    const anunciosExistentes = await anuncioModel.find({ categoria_id: id });
+    if (anunciosExistentes.length > 0) {
+      await anuncioModel.deleteMany({ categoria_id: id });
+
+      // Atualiza os usuários, removendo os anúncios excluídos
+      await usuarioModel.updateMany(
+        { anuncios: { $elemMatch: { categoria_id: id } } },
+        { $pull: { anuncios: { categoria_id: id } } }
+      );
+    }
+
+    const categoriaExcluida = await categoriaModel.findByIdAndDelete(id);
+    if (!categoriaExcluida) {
+      throw new ServerError(CATEGORIA_ERROR.CATEGORIA_NAO_ENCONTRADA);
+    }
+
+    return res.status(200).json({ message: "Categoria excluída com sucesso!" });
   }
 }
 
