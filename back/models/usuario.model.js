@@ -60,16 +60,16 @@ const usuarioSchema = new Schema(
       enum: ["admin", "usuario"],
       default: "usuario",
     },
-
-    // cep do usuário para outros usuarios poderem ver
-    // cep: {},
-
-    // avaliacao para o usuário -> corresponde a média das avaliações dos anúncios
-    // um usuario pode avaliar outro usuario, com uma nota de 1 a 5
-    // onde no front end será como estrelas talvez
-    // avaliacao: {},
-
-    // pode ser uma lista vazia
+    cep: {
+      type: String,
+      required: [true, "O CEP é necessário!"],
+      trim: true,
+      validate: {
+        // xxxxx-xxx
+        validator: (cep) => /\d{5}-\d{3}/.test(cep),
+        message: (props) => `${props.value} não é um CEP válido!`,
+      },
+    },
     anuncios: [
       {
         anuncio_id: {

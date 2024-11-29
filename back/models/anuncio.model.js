@@ -40,6 +40,17 @@ const anuncioSchema = new Schema(
       type: Date,
       required: [true, "A data de expiração é necessária!"],
     },
+    visibilidade: {
+      type: String,
+      enum: ["publico", "privado", "compartilhado"],
+      default: "privado",
+    },
+    compartilhado_com: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Usuarios",
+      },
+    ],
   },
   {
     timestamps: true,
