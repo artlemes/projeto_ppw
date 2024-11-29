@@ -22,15 +22,6 @@ const categoriaSchema = new Schema(
           type: Schema.Types.ObjectId,
           ref: "Anuncios",
           required: true,
-          validate: {
-            validator: async function (anuncio_id) {
-              const anuncio = await mongoose
-                .model("Anuncios")
-                .findById(anuncio_id);
-              return anuncio !== null;
-            },
-            message: (props) => `${props.value} não é um anúncio válido!`,
-          },
         },
       },
     ],

@@ -71,22 +71,21 @@ const usuarioSchema = new Schema(
       },
     },
     anuncios: [
+      // FORMA 1: Atualizar o usuário vinculado
       {
         anuncio_id: {
           type: Schema.Types.ObjectId,
           ref: "Anuncios",
           required: true,
-          validate: {
-            validator: async function (anuncio_id) {
-              const anuncio = await mongoose
-                .model("Anuncios")
-                .findById(anuncio_id);
-              return anuncio !== null;
-            },
-            message: (props) => `${props.value} não é um anúncio válido!`,
-          },
         },
       },
+      // FORMA 2: Atualizar o usuário vinculado
+      // OLHAR O CONTROLLER DE ANÚNCIO PARA ENTENDER
+      // {
+      //   type: Schema.Types.ObjectId,
+      //   ref: "Anuncios",
+      //   required: true,
+      // },
     ],
   },
   {
