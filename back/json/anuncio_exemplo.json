@@ -1,37 +1,35 @@
 [
   {
-    "titulo": "Smartphone XYZ",
-    "descricao": "Smartphone de última geração com 128GB de armazenamento.",
-    "preco": 2500,
-    "categoria_id": "64f1234567890abcde123456",
-    "usuario_id": "64f1234567890abcde123456",
-    "data_expiracao": "2024-12-28T00:00:00Z"
+    "titulo": "Notebook Dell Inspiron",
+    "descricao": "Notebook semi-novo, com 8GB RAM e SSD de 256GB.",
+    "preco": 2500.0,
+    "categoria_id": "63f7a2b8e57f430a88d9b001",
+    "usuario_id": "63f7a2b8e57f430a88d9b002",
+    "data_expiracao": "2024-12-31",
+    "visibilidade": "publico",
+    "compartilhado_com": []
   },
   {
-    "titulo": "Camiseta Padrão",
-    "descricao": "Camiseta de algodão tamanho P.",
-    "preco": 40,
-    "categoria_id": "64f1234567890abcde654321",
-    "usuario_id": "64f1234567890abcde123456",
-    "data_publicacao": "2024-11-28T00:00:00Z",
-    "data_expiracao": "2025-01-15T00:00:00Z"
+    "titulo": "Bicicleta Caloi 100",
+    "descricao": "Bicicleta de passeio, em ótimo estado.",
+    "preco": 800.0,
+    "categoria_id": "63f7a2b8e57f430a88d9b003",
+    "usuario_id": "63f7a2b8e57f430a88d9b004",
+    "data_expiracao": "2024-12-15",
+    "visibilidade": "privado",
+    "compartilhado_com": []
   },
   {
-    "titulo": "Livro de Programação",
-    "descricao": "Livro sobre programação em JavaScript.",
-    "preco": 80,
-    "categoria_id": "64f1234567890abcde123456",
-    "usuario_id": "64f1234567890abcde654321",
-    "data_publicacao": "2024-11-28T00:00:00Z",
-    "data_expiracao": "2024-12-28T00:00:00Z"
-  },
-  {
-    "titulo": "Cadeira de Escritório",
-    "descricao": "Cadeira ergonômica para escritório.",
-    "preco": -200,
-    "categoria_id": "64f1234567890abcde123456",
-    "usuario_id": "64f1234567890abcde123456",
-    "data_publicacao": "2024-11-28T00:00:00Z",
-    "data_expiracao": "2024-12-28T00:00:00Z"
+    "titulo": "Cadeira Gamer",
+    "descricao": "Cadeira em couro sintético, preta e vermelha.",
+    "preco": 1500.0,
+    "categoria_id": "63f7a2b8e57f430a88d9b005",
+    "usuario_id": "63f7a2b8e57f430a88d9b006",
+    "data_expiracao": "2024-11-30",
+    "visibilidade": "compartilhado",
+    "compartilhado_com": [
+      "63f7a2b8e57f430a88d9b002",
+      "63f7a2b8e57f430a88d9b003"
+    ]
   }
 ]
