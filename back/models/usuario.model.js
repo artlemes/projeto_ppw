@@ -61,6 +61,14 @@ const usuarioSchema = new Schema(
       default: "usuario",
     },
 
+    // cep do usuário para outros usuarios poderem ver
+    // cep: {},
+
+    // avaliacao para o usuário -> corresponde a média das avaliações dos anúncios
+    // um usuario pode avaliar outro usuario, com uma nota de 1 a 5
+    // onde no front end será como estrelas talvez
+    // avaliacao: {},
+
     // pode ser uma lista vazia
     anuncios: [
       {
