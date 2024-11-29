@@ -7,6 +7,15 @@ const usuarioRotas = Router();
 
 usuarioRotas.post("/", tryCatch(UsuarioController.criarUsuario));
 
+/*
+  funciona com query params
+
+  1. /buscar - retorna todos os usuários
+  2. /buscar?id=123 - retorna o usuário com o id 123
+  3. /buscar?nome=fulano - retorna o usuário com o nome fulano
+  4. /buscar?email=fulano@email.com - retorna o usuário com o email
+  5. /buscar?nome=fulano&email=fulano@email.com - retorna o usuário com o nome e email
+ */
 usuarioRotas.get("/buscar", tryCatch(UsuarioController.buscarUsuarios));
 
 usuarioRotas.get(
@@ -21,16 +30,16 @@ usuarioRotas.patch(
   tryCatch(UsuarioController.atualizarUsuario)
 );
 
-usuarioRotas.delete(
-  "/:id",
-  checkToken,
-  tryCatch(UsuarioController.excluirUsuario)
-);
-
 usuarioRotas.put(
   "/senha/:id",
   checkToken,
   tryCatch(UsuarioController.atualizarSenha)
+);
+
+usuarioRotas.delete(
+  "/:id",
+  checkToken,
+  tryCatch(UsuarioController.excluirUsuario)
 );
 
 export default usuarioRotas;
