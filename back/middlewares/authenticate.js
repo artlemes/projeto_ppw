@@ -16,8 +16,8 @@ export function checkToken(req, res, next) {
     if (error) {
       throw new ServerError(TOKEN_ERROR.FORBIDDEN_ACCESS);
     }
-    req.userId = payload.id;
-    req.userRole = payload.role;
+    req.usuarioId = payload.id;
+    req.usuarioPapel = payload.papel;
     //   console.log("Payload: ", payload);
     next();
   });
