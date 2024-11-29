@@ -73,4 +73,12 @@ const anuncioSchema = new Schema(
 //   next();
 // });
 
+// Se o nível de visibilidade for "compartilhado", você pode garantir no middleware que compartilhado_com não esteja vazio
+// anuncioSchema.pre("save", function (next) {
+// if (this.visualizacoes === "compartilhado" && (!this.compartilhado_com || this.compartilhado_com.length === 0)) {
+// return next(new Error("Um anúncio compartilhado deve incluir ao menos um usuário no campo 'compartilhado_com'."));
+// }
+// next();
+// });
+
 export const anuncioModel = mongoose.model("Anuncios", anuncioSchema);
