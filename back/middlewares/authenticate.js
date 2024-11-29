@@ -8,17 +8,17 @@ export function checkToken(req, res, next) {
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
-    throw new ServerError(TOKEN_ERROR.NOT_PROVIDED);
+    throw new ServerError(TOKEN_ERROR.TOKEN_NAO_ENVIADO);
   }
 
   const secret = process.env.JWT_SECRET;
   jwt.verify(token, secret, (error, payload) => {
     if (error) {
-      throw new ServerError(TOKEN_ERROR.FORBIDDEN_ACCESS);
+      throw new ServerError(TOKEN_ERROR.ACESSO_NEGADO);
     }
     req.usuarioId = payload.id;
     req.usuarioPapel = payload.papel;
-    //   console.log("Payload: ", payload);
+    // console.log("Payload: ", payload);
     next();
   });
 }

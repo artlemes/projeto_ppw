@@ -44,4 +44,8 @@ export const TOKEN_ERROR = {
     statusCode: 401,
     message: "Token não enviado",
   },
+  ACESSO_NEGADO: {
+    statusCode: 401,
+    message: "Acesso negado",
+  },
 };
