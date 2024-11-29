@@ -10,9 +10,7 @@ class UsuarioController {
   async loginUsuario(req, res) {
     const { email, senha } = req.body;
 
-    //validando os inputs
     if (!email || !senha) {
-      //lancando um erro de campos nao preenchidos
       throw new ServerError(USUARIO_ERROR.CAMPOS_NAO_PREENCHIDOS);
     }
 
@@ -27,7 +25,7 @@ class UsuarioController {
       throw new ServerError(USUARIO_ERROR.LOGIN_INVALIDO);
     }
 
-    // Gerar token de autenticação
+    // Gera o token de autenticação
     const secret = process.env.JWT_SECRET;
     const token = jwt.sign({ id: usuario._id }, secret, {
       expiresIn: "1h",
@@ -37,9 +35,10 @@ class UsuarioController {
   }
 
   async criarUsuario(req, res) {
-    const { nome, email, cpf, senha } = req.body;
+    const { nome, sobrenome, email, cpf, telefone, senha, papel, cep } =
+      req.body;
 
-    if (!nome || !email || !cpf || !senha) {
+    if (!nome || !sobrenome || !email || !cpf || !telefone || !senha || !cep) {
       throw new ServerError(USUARIO_ERROR.CAMPOS_NAO_PREENCHIDOS);
     }
 
@@ -55,18 +54,22 @@ class UsuarioController {
 
     const novoUsuario = {
       nome,
+      sobrenome,
       email,
       cpf,
+      telefone,
       senha: hashedSenha,
+      cep,
+      papel: papel || "usuario",
     };
 
     await usuarioModel.create(novoUsuario);
 
-    return res.status(204).send();
+    return res.status(201).json({ message: "Usuário criado com sucesso!" });
   }
 
   async buscarUsuarios(req, res) {
-    const { id, cpf } = req.query;
+    const { id, nome, email } = req.query;
     let query = {};
 
     if (id) {
@@ -74,14 +77,24 @@ class UsuarioController {
       query._id = id;
     }
 
-    if (cpf) {
-      query.cpf = cpf;
+    if (nome) query.nome = nome;
+
+    if (email) {
+      query.email = email.toLowerCase();
     }
 
-    const usuarios = await usuarioModel.findById(id, "-senha -__v");
-    if (!usuarios) {
-      // throw new ServerError(USUARIO_ERROR.USUARIO_NAO_ENCONTRADO);
-      return res.status(200).json({ message: "Nenhum usuário foi encontrado" });
+    // Busca no banco de dados
+    let usuarios;
+    if (id) {
+      usuarios = await usuarioModel.findById(id, "-senha -__v");
+    } else {
+      usuarios = await usuarioModel.find(query, "-senha -__v");
+    }
+
+    if (!usuarios || (Array.isArray(usuarios) && usuarios.length === 0)) {
+      return res
+        .status(404)
+        .json({ message: "Nenhum usuário foi encontrado." });
     }
 
     return res.status(200).json(usuarios);
@@ -89,6 +102,7 @@ class UsuarioController {
 
   async buscarUsuarioLogado(req, res) {
     const id = req.usuarioId;
+    validateId(id);
 
     const usuario = await usuarioModel.findById(id, "-senha -__v");
 
@@ -99,34 +113,36 @@ class UsuarioController {
     return res.status(200).json(usuario);
   }
 
-  async excluirUsuario(req, res) {
-    //adquirindo o id da requisicao
-    const id = req.params.id;
-
-    //excluindo o relacionamento entre o usuario e os anuncios
-    await anuncioModel.deleteMany({ usuario_id: id });
-
-    //excluindo o usuario do banco
-    await usuarioModel.findByIdAndDelete(id);
-
-    // retornando um status 204
-    return res.status(204).send();
-  }
-
   async atualizarUsuario(req, res) {
-    //adquirindo o id da requisicao
     const id = req.params.id;
+    validateId(id);
 
-    await usuarioModel.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
+    // Verifica se a senha foi passada nos dados da requisição
+    if (req.body.senha) {
+      throw new ServerError(USUARIO_ERROR.SENHA_NAO_PODE_SER_ATUALIZADA);
+    }
 
-    // retornando um status 204
-    return res.status(204).send();
+    // Criando uma cópia do corpo da requisição, excluindo a senha
+    const { senha, ...dadosAtualizados } = req.body;
+
+    const usuarioAtualizado = await usuarioModel.findByIdAndUpdate(
+      id,
+      dadosAtualizados,
+      {
+        new: true,
+      }
+    );
+
+    if (!usuarioAtualizado) {
+      throw new ServerError(USUARIO_ERROR.USUARIO_NAO_ENCONTRADO);
+    }
+
+    return res.status(200).json({ message: "Usuário atualizado com sucesso!" });
   }
 
   async atualizarSenha(req, res) {
     const id = req.usuarioId;
+    validateId(id);
 
     const { senhaAntiga, senhaNova } = req.body;
 
@@ -146,7 +162,19 @@ class UsuarioController {
 
     await usuarioModel.findByIdAndUpdate(id, { senha: hashedSenha });
 
-    return res.status(204).send();
+    return res.status(200).json({ message: "Senha atualizada com sucesso!" });
+  }
+
+  async excluirUsuario(req, res) {
+    const id = req.params.id;
+    validateId(id);
+
+    // excluindo os anuncios do usuario
+    await anuncioModel.deleteMany({ usuario_id: id });
+
+    await usuarioModel.findByIdAndDelete(id);
+
+    return res.status(200).json({ message: "Usuário excluído com sucesso!" });
   }
 }
 
