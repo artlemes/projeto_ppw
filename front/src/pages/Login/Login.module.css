@@ -1,10 +1,31 @@
 .login {
-    padding-top: 10vh;
-    height: 80vh;
+    min-height: 100vh; 
     display: flex;
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     background-color: #f5f8fa;
+    padding: 0;
+}
+
+.logoWrapper {
+    padding-top: 40px;
+    padding-bottom: 50px; 
+    text-align: center; 
+}
+
+.logoWrapper img {
+    max-width: 300px; 
+    height: auto;
+}
+
+.logoWrapper2 {
+    padding:70px;
+}
+
+.logoWrapper2 img {
+    max-width: 150px; 
+    height: auto;
 }
 
 .login form {
@@ -16,6 +37,10 @@
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px; 
+}
+
+.login h1 {
+    color: #0b659c; 
 }
 
 .login label {

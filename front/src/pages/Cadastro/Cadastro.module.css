@@ -1,10 +1,30 @@
 .cadastro {
-    padding-top: 10vh;
-    height: 80vh;
+    min-height: 100vh; 
     display: flex;
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     background-color: #f5f8fa;
+    padding: 0;
+}
+
+.logoWrapper {
+    padding: 20px;
+    text-align: center; 
+}
+
+.logoWrapper img {
+    max-width: 300px;
+    height: auto;
+}
+
+.logoWrapper2 {
+    padding:40px;
+}
+
+.logoWrapper2 img {
+    max-width: 150px; 
+    height: auto;
 }
 
 .cadastro form {
@@ -22,8 +42,17 @@
     display: flex;
     flex-direction: column;
     font-size: 14px;
-    color: #333333; 
+    color: #000000; 
     font-weight: 600;
+}
+
+.cadastro h1 {
+    color: #0b659c; 
+}
+
+.cadastro input::placeholder {
+    color: #0b6dac; 
+    opacity: 0.8; 
 }
 
 .cadastro input[type="text"],
