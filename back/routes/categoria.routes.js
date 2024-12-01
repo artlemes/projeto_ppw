@@ -24,7 +24,7 @@ categoriaRotas.post(
 categoriaRotas.get("/buscar", tryCatch(CategoriaController.buscarCategorias));
 
 categoriaRotas.get(
-  "/buscar/:id",
+  "/anuncios/:id",
   checkToken,
   tryCatch(CategoriaController.listarAnunciosPorCategoria)
 );

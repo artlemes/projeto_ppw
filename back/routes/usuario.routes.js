@@ -24,6 +24,12 @@ usuarioRotas.get(
   tryCatch(UsuarioController.buscarUsuarioLogado)
 );
 
+usuarioRotas.get(
+  "/anuncios/:id",
+  checkToken,
+  tryCatch(UsuarioController.listarAnunciosPorUsuario)
+);
+
 usuarioRotas.patch(
   "/:id",
   checkToken,
