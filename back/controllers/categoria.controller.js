@@ -36,14 +36,26 @@ class CategoriaController {
       query._id = id;
     }
 
-    if (nome) query.nome = nome;
+    if (nome) {
+      query.nome = { $regex: nome, $options: "i" };
+    }
 
     // Busca no banco de dados
     let categorias;
     if (id) {
-      categorias = await categoriaModel.findById(query, "-__v");
+      categorias = await categoriaModel
+        .findById(query, "-__v -createdAt -updatedAt")
+        .populate({
+          path: "anuncios.anuncio_id",
+          select: "titulo descricao preco -_id",
+        });
     } else {
-      categorias = await categoriaModel.find(query, "-__v");
+      categorias = await categoriaModel
+        .find(query, "-__v -createdAt -updatedAt")
+        .populate({
+          path: "anuncios.anuncio_id",
+          select: "titulo descricao preco -_id",
+        });
     }
 
     if (!categorias || (Array.isArray(categorias) && categorias.length === 0)) {
@@ -60,14 +72,19 @@ class CategoriaController {
     const { id } = req.params;
     validateId(id);
 
-    const categoria = await categoriaModel
-      .findById(id)
-      .populate("anuncios", "-__v");
-    if (!categoria) {
-      throw new ServerError(CATEGORIA_ERROR.CATEGORIA_NAO_ENCONTRADA);
+    const anuncios = await anuncioModel
+      .find({ categoria_id: id })
+      .populate({
+        path: "usuario_id",
+        select: "nome",
+      })
+      .select("-__v -categoria_id -createdAt -updatedAt");
+
+    if (!anuncios || anuncios.length === 0) {
+      throw new ServerError(CATEGORIA_ERROR.CATEGORIA_SEM_ANUNCIOS);
     }
 
-    return res.status(200).json(categoria.anuncios);
+    return res.status(200).json(anuncios);
   }
 
   async atualizarCategoria(req, res) {
