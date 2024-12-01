@@ -113,6 +113,25 @@ class UsuarioController {
     return res.status(200).json(usuario);
   }
 
+  async listarAnunciosPorUsuario(req, res) {
+    const { id } = req.params;
+    validateId(id);
+
+    const anuncios = await anuncioModel
+      .find({ usuario_id: id })
+      .populate({
+        path: "usuario_id", // Popula o campo `usuario_id`
+        select: "nome", // Retorna apenas o nome do usuário
+      })
+      .select("-__v -categoria_id -createdAt -updatedAt"); // Exclui campos desnecessários
+
+    if (!anuncios || anuncios.length === 0) {
+      throw new ServerError(USUARIO_ERROR.USUARIO_SEM_ANUNCIOS);
+    }
+
+    return res.status(200).json(anuncios);
+  }
+
   async atualizarUsuario(req, res) {
     const id = req.params.id;
     validateId(id);
