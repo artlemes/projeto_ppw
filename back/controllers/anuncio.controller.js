@@ -108,11 +108,10 @@ class AnuncioController {
     return res.status(201).json(anuncioCriado);
   }
 
-  // Buscar Anúncios aqui tem a lógica de que se o usuário não esta na lista d
-  // compartilhamento, não pode ver o anúncio, além disso, se o anúncio for privado
-  // só o dono pode ver, então não deve ser retornado nesse caso
   async buscarAnuncios(req, res) {
     const { id, titulo, usuario_id, categoria_id, visibilidade } = req.query;
+    const usuarioAutenticadoId = req.usuarioId; // Supondo que o ID do usuário autenticado esteja disponível em `req.usuario.id`
+
     let query = {};
 
     if (id) {
@@ -121,7 +120,7 @@ class AnuncioController {
     }
 
     if (titulo) {
-      query.titulo = titulo;
+      query.titulo = { $regex: titulo, $options: "i" }; // Busca por título parcial, case insensitive
     }
 
     if (usuario_id) {
@@ -138,18 +137,148 @@ class AnuncioController {
       query.visibilidade = visibilidade;
     }
 
-    const anuncios = await anuncioModel.find(query, "-__v");
-    if (!anuncios.length) {
-      return res.status(200).json({ message: "Nenhum anúncio foi encontrado" });
+    // Buscar anúncios com o populate para carregar o campo `compartilhado_com`
+    const anuncios = await anuncioModel
+      .find(query, "-__v -createdAt -updatedAt")
+      .populate({
+        path: "compartilhado_com",
+        select: "_id nome", // Selecionar apenas o ID e o nome dos usuários
+      });
+
+    // Filtrar anúncios com base nas permissões
+    const anunciosPermitidos = anuncios.filter((anuncio) => {
+      const { visibilidade, usuario_id, compartilhado_com } = anuncio;
+
+      // Se o anúncio for privado, apenas o dono pode vê-lo
+      if (
+        visibilidade === "privado" &&
+        usuario_id.toString() !== usuarioAutenticadoId
+      ) {
+        return false;
+      }
+
+      // Se o anúncio não for privado, verificar se o usuário está na lista de compartilhamento (se aplicável)
+      if (
+        visibilidade === "compartilhado" &&
+        !compartilhado_com.some(
+          (compartilhado) =>
+            compartilhado._id.toString() === usuarioAutenticadoId
+        )
+      ) {
+        return false;
+      }
+
+      // Anúncio é público ou o usuário tem permissão para vê-lo
+      return true;
+    });
+
+    if (!anunciosPermitidos.length) {
+      throw new ServerError(ANUNCIO_ERROR.ANUNCIOS_NAO_ENCONTRADOS);
     }
 
-    return res.status(200).json(anuncios);
+    return res.status(200).json(anunciosPermitidos);
   }
 
-  // Atualizar Anúncio
+  async mudarVisibilidadeAnuncio(req, res) {
+    const { anuncio_id } = req.params;
+    const { visibilidade } = req.body;
+
+    validateId(anuncio_id);
+
+    // Validar se o campo `visibilidade` foi fornecido
+    if (!visibilidade) {
+      throw new ServerError(ANUNCIO_ERROR.VISIBILIDADE_NAO_FORNECIDA);
+    }
+
+    // Validar valores permitidos para `visibilidade`
+    const valoresPermitidos = ["publico", "privado", "compartilhado"];
+    if (!valoresPermitidos.includes(visibilidade)) {
+      throw new ServerError(ANUNCIO_ERROR.VISIBILIDADE_INVALIDA);
+    }
+
+    // Buscar o anúncio antes de atualizar
+    const anuncio = await anuncioModel.findById(anuncio_id);
+    if (!anuncio) {
+      throw new ServerError(ANUNCIO_ERROR.ANUNCIO_NAO_ENCONTRADO);
+    }
+
+    // Verificar se o usuário autenticado é o dono do anúncio
+    if (anuncio.usuario_id.toString() !== req.usuarioId) {
+      throw new ServerError(ANUNCIO_ERROR.USUARIO_NAO_AUTORIZADO);
+    }
+
+    // Atualizar a visibilidade do anúncio
+    const anuncioAtualizado = await anuncioModel.findByIdAndUpdate(
+      anuncio_id,
+      { visibilidade },
+      { new: true, select: "titulo descricao visibilidade" } // Retornar apenas os campos relevantes
+    );
+
+    return res.status(200).json({
+      message: "Visibilidade do anúncio atualizada com sucesso.",
+      anuncio: anuncioAtualizado,
+    });
+  }
+
+  async compartilharAnuncio(req, res) {
+    const { anuncio_id } = req.params; // ID do anúncio na rota
+    const { compartilhado_com } = req.body; // Lista de IDs de usuários no corpo da requisição
+
+    validateId(anuncio_id);
+
+    // Validar se a lista `compartilhado_com` foi fornecida
+    if (!Array.isArray(compartilhado_com) || compartilhado_com.length === 0) {
+      throw new ServerError(
+        ANUNCIO_ERROR.USUARIOS_COMPARTILHADOS_NAO_INFORMADOS
+      );
+    }
+
+    // Buscar o anúncio antes de atualizar
+    const anuncio = await anuncioModel.findById(anuncio_id);
+    if (!anuncio) {
+      throw new ServerError(ANUNCIO_ERROR.ANUNCIO_NAO_ENCONTRADO);
+    }
+
+    // Verificar se o usuário autenticado é o dono do anúncio
+    if (anuncio.usuario_id.toString() !== req.usuarioId) {
+      throw new ServerError(ANUNCIO_ERROR.USUARIO_NAO_AUTORIZADO);
+    }
+
+    // Validar se os usuários a serem adicionados existem
+    for (const usuarioId of compartilhado_com) {
+      validateId(usuarioId);
+
+      const usuarioExiste = await usuarioModel.findById(usuarioId);
+      if (!usuarioExiste) {
+        throw new ServerError(USUARIO_ERROR.USUARIO_NAO_ENCONTRADO);
+      }
+    }
+
+    // Atualizar a lista de compartilhamento, adicionando novos usuários sem duplicar
+    const anuncioAtualizado = await anuncioModel.findByIdAndUpdate(
+      anuncio_id,
+      {
+        // $addToSet: { compartilhado_com: { $each: compartilhado_com } }, // Adiciona usuários à lista, evitando duplicatas
+        compartilhado_com,
+      },
+      { new: true, select: "titulo descricao visibilidade compartilhado_com" } // Seleciona os campos relevantes
+    );
+
+    return res.status(200).json({
+      message: "Anúncio compartilhado com sucesso.",
+      anuncio: anuncioAtualizado,
+    });
+  }
+
   async atualizarAnuncio(req, res) {
     const id = req.params.id;
     validateId(id);
+
+    // Buscar o anúncio antes de atualizar
+    const anuncio = await anuncioModel.findById(id);
+    if (!anuncio) {
+      throw new ServerError(ANUNCIO_ERROR.ANUNCIO_NAO_ENCONTRADO);
+    }
 
     // Validar se o campo `data_expiracao` está sendo atualizado e se é válido
     if (
