@@ -1,11 +1,12 @@
 import Sider from "../../components/Sider/index.jsx"
 import ProfileBackground from "../../components/Profile-background/index.jsx";
 import styles from "./Perfil.module.css"
-
+import Header from "../../components/Header"
 
 function Perfil() {
     return (
         <div className={styles.fundoPagina}>
+        <Header></Header>
         <Sider></Sider>
         <ProfileBackground></ProfileBackground>
         <Sider></Sider>
