@@ -1,0 +1,8 @@
+.sider {
+    width: 170px;
+    height: 1000px;
+    display: flex;
+    background-color: #bbb8be;
+    padding-block: 0.1rem;
+    bottom: 0;
+}
