@@ -68,6 +68,40 @@ class UsuarioController {
     return res.status(201).json({ message: "Usuário criado com sucesso!" });
   }
 
+  async criarUsuarioAdmin(req, res) {
+    const { nome, sobrenome, email, cpf, telefone, senha, papel, cep } =
+      req.body;
+
+    if (!nome || !sobrenome || !email || !cpf || !telefone || !senha || !cep) {
+      throw new ServerError(USUARIO_ERROR.CAMPOS_NAO_PREENCHIDOS);
+    }
+
+    const usuarioExiste = await usuarioModel.findOne({
+      $or: [{ email }, { cpf }],
+    });
+    if (usuarioExiste) {
+      throw new ServerError(USUARIO_ERROR.USUARIO_JA_EXISTE);
+    }
+
+    const salt = await bcrypt.genSalt(12);
+    const hashedSenha = await bcrypt.hash(senha, salt);
+
+    const novoUsuario = {
+      nome,
+      sobrenome,
+      email,
+      cpf,
+      telefone,
+      senha: hashedSenha,
+      cep,
+      papel: papel || "admin",
+    };
+
+    await usuarioModel.create(novoUsuario);
+
+    return res.status(201).json({ message: "Admin criado com sucesso!" });
+  }
+
   async buscarUsuarios(req, res) {
     const { id, nome, email } = req.query;
     let query = {};

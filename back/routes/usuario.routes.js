@@ -7,6 +7,8 @@ const usuarioRotas = Router();
 
 usuarioRotas.post("/", tryCatch(UsuarioController.criarUsuario));
 
+usuarioRotas.post("/admin", tryCatch(UsuarioController.criarUsuarioAdmin));
+
 /*
   funciona com query params
 
