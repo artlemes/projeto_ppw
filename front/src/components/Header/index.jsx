@@ -3,7 +3,13 @@ import { Link } from "react-router-dom"
 import BotaoPadrao from "../BotaoPadrao";
 
 
-function Header({legenda, link}) {
+function Header({botoes}) {
+
+    let listaDeBotoes = []
+
+    botoes.forEach((botao) => {
+        listaDeBotoes.push(<BotaoPadrao legenda={botao.legenda} link={botao.link}></BotaoPadrao>)
+    })
 
     return (
         <header className={styles.header}> {/* sempre usar className pra definir as classes pro css*/}
@@ -11,9 +17,9 @@ function Header({legenda, link}) {
             <Link to="/">
                 <img src='/images/logopgw.png' alt="Logo"></img>
             </Link>
-
-            <BotaoPadrao legenda={legenda} link={link}></BotaoPadrao>
-
+            
+            <div>{listaDeBotoes}</div>
+            
         </header>
 
     )

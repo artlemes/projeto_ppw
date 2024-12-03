@@ -9,7 +9,7 @@ import styles from "./Home.module.css";
 function Home() {  //renderiza 
   return (
     <>
-      <Header legenda={"Login"} link={'/login'}></Header>
+      <Header botoes={[{"link":"/login","legenda":"Login"}]}></Header>
       <BannerRSuite></BannerRSuite>
 
       <Container> 

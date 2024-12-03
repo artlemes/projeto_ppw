@@ -6,7 +6,7 @@ import Header from "../../components/Header"
 function Perfil() {
     return (
         <div className={styles.fundoPagina}>
-        <Header legenda={"Sair"} link={'../'}></Header>
+        <Header botoes={[{"link":"../","legenda":"Sair"},{"link":"../","legenda":"Sair"}]}></Header>
         <Sider></Sider>
         <ProfileBackground></ProfileBackground>
         <Sider></Sider>
