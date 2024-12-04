@@ -8,7 +8,7 @@ function Perfil() {
         <div className={styles.fundoPagina}>
         <Header botoes={[{"link":"../","legenda":"Sair"},{"link":"../","legenda":"Sair"}]}></Header>
         <Sider></Sider>
-        <ProfileBackground></ProfileBackground>
+        <ProfileBackground tituloDaPagina={'Meus anúncios'}></ProfileBackground>
         <Sider></Sider>
         </div>
     )

@@ -1,6 +1,6 @@
 import styles from "./Header.module.css"
 import { Link } from "react-router-dom"
-import BotaoPadrao from "../BotaoPadrao";
+import BotaoPadraoPequeno from "../BotaoPadraoPequeno";
 
 
 function Header({botoes}) {
@@ -8,7 +8,7 @@ function Header({botoes}) {
     let listaDeBotoes = []
 
     botoes.forEach((botao) => {
-        listaDeBotoes.push(<BotaoPadrao legenda={botao.legenda} link={botao.link}></BotaoPadrao>)
+        listaDeBotoes.push(<BotaoPadraoPequeno legenda={botao.legenda} link={botao.link}></BotaoPadraoPequeno>)
     })
 
     return (
