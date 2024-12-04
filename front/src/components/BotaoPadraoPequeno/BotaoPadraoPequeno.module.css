@@ -1,12 +1,14 @@
-link {
-    text-decoration: 'none'
-}
 .BotaoPadraoPequeno {
-    background-color: rgb(255, 255, 255);
+    background-color: #ffffff;
     color: #0c7bc2;
     width: 60px;
     padding-block: 6px;
     margin-right: 30px;
     border-radius: 5px;
     transition: background-color 0.4s ease, color 0.4s ease; 
+}
+
+.BotaoPadraoPequeno:hover {
+    background-color: #000000;
+    color: #ffffff;
 }

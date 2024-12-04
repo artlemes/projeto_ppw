@@ -3,12 +3,14 @@ import { Link } from "react-router-dom"
 import BotaoPadraoPequeno from "../BotaoPadraoPequeno";
 
 
-function Header({botoes}) {
+function Header({botoesDireita}) {
 
-    let listaDeBotoes = []
+    let listaDeBotoesDireita = []
 
-    botoes.forEach((botao) => {
-        listaDeBotoes.push(<BotaoPadraoPequeno legenda={botao.legenda} link={botao.link}></BotaoPadraoPequeno>)
+    botoesDireita.forEach((botao) => {
+        listaDeBotoesDireita.push(
+            <BotaoPadraoPequeno legenda={botao.legenda} link={botao.link}></BotaoPadraoPequeno>
+        )
     })
 
     return (
@@ -18,7 +20,9 @@ function Header({botoes}) {
                 <img src='/images/logopgw.png' alt="Logo"></img>
             </Link>
             
-            <div>{listaDeBotoes}</div>
+            <div>
+                {listaDeBotoesDireita}
+            </div>
             
         </header>
 
