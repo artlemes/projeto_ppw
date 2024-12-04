@@ -1,5 +1,6 @@
 import Container from "../../components/Container";
 import Formulario from "../../components/Formulario";
+import Footer from "../../components/Footer";
 import styles from "./Cadastro.module.css";
 import React, { useState } from "react";
 import { cadastrarUsuario } from "../../services/apiService";
@@ -93,6 +94,7 @@ function Cadastro() {
 	};
 
 	return (
+		<>
 		<Container>
 			<Formulario>
 				<div className={styles.logoWrapper}>
@@ -100,7 +102,7 @@ function Cadastro() {
 				</div>
 
 				<form onSubmit={handleSubmit}>
-					<h1>Cadastro</h1>
+					<h3>Cadastro</h3>
 					<p></p>
 					<input
 						type="text" name="nome" placeholder="Nome"
@@ -140,11 +142,13 @@ function Cadastro() {
 					<button type="submit">Cadastrar</button>
 				</form>
 
-				<div className={styles.logoWrapper2}>
+				{/* <div className={styles.logoWrapper2}>
 					<img src="/images/vertical_sigla_fundo_claro.png" />
-				</div>
+				</div> */}
 			</Formulario>
+			<Footer></Footer>
 		</Container>
+		</>
 	);
 }
 

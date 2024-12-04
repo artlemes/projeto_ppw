@@ -1,5 +1,6 @@
 import Container from "../../components/Container";
 import Formulario from "../../components/Formulario";
+import Footer from "../../components/Footer";
 import styles from "./Login.module.css";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -38,7 +39,7 @@ function Login({ onSubmit }) {
                     <img src="/images/logopgw2.png" alt="Logo" />
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <h1>Login</h1>
+                    <h3>Login</h3>
                     <p></p>
                     <input
                         type="email" placeholder="E-mail"
@@ -50,14 +51,21 @@ function Login({ onSubmit }) {
                     />
                     <p></p>
                     <button type="submit">Entrar</button>
-                    <Link to="/cadastro">
-                        <p style={{fontWeight: "bold"}}>Cadastre-se</p>
-                    </Link>
+                    <p style={{textAlign: "center"}}>
+                        <Link to="/cadastro">
+                            <span style={{fontWeight: "bold"}}>Cadastrar-se</span>
+                        </Link>
+                        <p></p><p></p>
+                        <Link to="/recuperarSenha">
+                            <span style={{fontWeight: "bold"}}>Recuperar senha</span>
+                        </Link>
+                    </p>
                 </form>
-                <div className={styles.logoWrapper2}>
+                {/* <div className={styles.logoWrapper2}>
                     <img src="/images/vertical_sigla_fundo_claro.png" />
-                </div>
+                </div> */}
             </Formulario>
+            <Footer></Footer>
         </Container>
 		</>
 	);

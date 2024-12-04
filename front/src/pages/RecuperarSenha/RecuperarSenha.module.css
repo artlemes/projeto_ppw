@@ -1,0 +1,18 @@
+.logoWrapper {
+    padding: 20px;
+    text-align: center; 
+}
+
+.logoWrapper img {
+    max-width: 300px;
+    height: auto;
+}
+
+.logoWrapper2 {
+    padding:40px;
+}
+
+.logoWrapper2 img {
+    max-width: 150px; 
+    height: auto;
+}

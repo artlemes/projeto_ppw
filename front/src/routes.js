@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import PagNaoEncontrada from "./pages/PagNaoEncontrada";
 import Cadastro from "./pages/Cadastro";
+import RecuperarSenha from "./pages/RecuperarSenha";
 import Perfil from "./pages/Perfil";
 import Anuncio from "./pages/Anuncio";
 
@@ -17,6 +18,9 @@ function AppRoutes() {
           {" "}
         </Route>
         <Route path="/cadastro" element={<Cadastro />}>
+          {" "}
+        </Route>
+        <Route path="/recuperarSenha" element={<RecuperarSenha />}>
           {" "}
         </Route>
         <Route path="*" element={<PagNaoEncontrada />}>
