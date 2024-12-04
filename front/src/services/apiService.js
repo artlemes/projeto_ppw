@@ -8,14 +8,14 @@ const API_BASE_URL = "http://127.0.0.1:8080";
  * @returns {Promise<Response>} Resposta da API.
  */
 export const cadastrarUsuario = async (userData) => {
-    //return fetch(`${API_BASE_URL}/cadastro`, { rota que tava usando antes, não sei certo qual endpoint usar, mas antes com esse aqui tava danto undefined
-    return fetch(`${API_BASE_URL}/usuario`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
+  //return fetch(`${API_BASE_URL}/cadastro`, { rota que tava usando antes, não sei certo qual endpoint usar, mas antes com esse aqui tava danto undefined
+  return fetch(`${API_BASE_URL}/usuario`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
 };
 
 /*
@@ -24,11 +24,23 @@ export const cadastrarUsuario = async (userData) => {
  * @returns {Promise<Response>} Resposta da API.
  */
 export const fazerLogin = async (userData) => {
-    return fetch(`${API_BASE_URL}/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
+  return fetch(`${API_BASE_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+};
+
+export const buscarAnuncio = async () => {
+  const token = localStorage.getItem("token");
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return fetch(`${API_BASE_URL}/anuncio/buscar`, options);
 };
