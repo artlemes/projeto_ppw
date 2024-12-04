@@ -1,5 +1,4 @@
 import styles from "./ProfileSider.module.css"
-import BotaoPadraoPequeno from "../BotaoPadraoPequeno"
 
 function ProfileSider() {
     return (

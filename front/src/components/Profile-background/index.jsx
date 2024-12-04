@@ -3,11 +3,12 @@ import ProfileSider from "../ProfileSider"
 
 function ProfileBackground() {
     return (
-        <>
-        <ProfileSider></ProfileSider>
-        <header className={styles.profile}></header>
-        
-        </>
+        <div className={styles.profile}>
+            <ProfileSider></ProfileSider>
+            <div className={styles.profileOptions}>
+                <p style={{marginTop: +80}}>arthur</p>
+            </div>
+        </div>
 
     )
 }
