@@ -1,7 +1,7 @@
 import { usuarioModel } from "../models/usuario.model.js";
 import { anuncioModel } from "../models/anuncio.model.js";
 import ServerError from "../ServerError.js";
-import { USUARIO_ERROR } from "../constants/errorCodes.js";
+import { USUARIO_ERROR, TOKEN_ERROR } from "../constants/errorCodes.js";
 import { validateId } from "../utils/validateId.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";

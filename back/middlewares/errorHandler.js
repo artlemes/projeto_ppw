@@ -3,7 +3,7 @@ import ServerError from "../ServerError.js";
 
 export function errorHandler(error, req, res, next) {
   if (error instanceof mongoose.Error.ValidationError) {
-    console.log("Validation Error:", error);
+    console.log("Erro de Validação:", error);
     return res.status(400).send({
       error: true,
       type: "ValidationError",
@@ -29,7 +29,7 @@ export function errorHandler(error, req, res, next) {
     });
   }
 
-  console.log("Internal Server Error:", error);
+  console.log("Erro interno no Servidor:", error);
   return res.status(500).send({
     message: error.message,
   });
