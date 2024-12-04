@@ -8,7 +8,7 @@ function Perfil() {
         <div className={styles.fundoPagina}>
         <Header legenda={"Sair"} link={'../'}></Header>
         <Sider></Sider>
-        <ProfileBackground></ProfileBackground>
+        <ProfileBackground tituloDaPagina={'Meus anúncios'}></ProfileBackground>
         <Sider></Sider>
         </div>
     )

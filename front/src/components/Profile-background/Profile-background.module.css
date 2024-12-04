@@ -5,8 +5,36 @@
     padding-block: 0.1rem;
     margin-top: 0;
     display: flex;
-    flex-direction: line;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
 }
-.profileOptions {
-
+.profileTitle {
+    margin-top: +80px;
+}
+.botao {
+    width: 110px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+}
+.meuAnuncio {
+    display: flex;
+    flex-direction: line;
+    align-items: center;
+    gap: 50px;
+}
+.imagemCateg {
+    width: 100px;
+    height: 100px;
+}
+.info {
+    font-size: large;
+}
+.botoesMeuAnuncio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }
