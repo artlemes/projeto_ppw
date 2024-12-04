@@ -1,6 +1,6 @@
 import styles from "./Header.module.css"
 import { Link } from "react-router-dom"
-import BotaoPadrao from "../BotaoPadrao";
+import BotaoPadraoPequeno from "../BotaoPadraoPequeno";
 
 
 function Header({legenda, link}) {
@@ -12,7 +12,7 @@ function Header({legenda, link}) {
                 <img src='/images/logopgw.png' alt="Logo"></img>
             </Link>
 
-            <BotaoPadrao legenda={legenda} link={link}></BotaoPadrao>
+            <BotaoPadraoPequeno legenda={legenda} link={link}></BotaoPadraoPequeno>
 
         </header>
 
