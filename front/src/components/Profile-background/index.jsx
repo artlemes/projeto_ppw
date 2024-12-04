@@ -12,8 +12,8 @@ function ProfileBackground({tituloDaPagina}) {
                     <img className={styles.imagemCateg} src='https://cdn-icons-png.flaticon.com/128/3774/3774278.png'></img>
                     <p className={styles.info}>Informações sobre o preço, descrição</p>
                     <div className={styles.botoesMeuAnuncio}>
-                        <button className={styles.botao}>Criar anúncio</button>
-                        <button className={styles.botao}>Criar anúncio</button>
+                        <button className={styles.botao}>Editar anúncio</button>
+                        <button className={styles.botaoExcluir}>Excluir anúncio</button>
                     </div>
                 </div>
             </div>
