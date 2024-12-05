@@ -14,7 +14,7 @@ function Anuncio() {
   return (
     <>
       <Container>
-        <h1>HELOO WORL</h1>
+        <h1>HELLO WORLD</h1>
       </Container>
     </>
   );
