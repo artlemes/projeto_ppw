@@ -6,32 +6,28 @@ import Cadastro from "./pages/Cadastro";
 import RecuperarSenha from "./pages/RecuperarSenha";
 import Perfil from "./pages/Perfil";
 import Anuncio from "./pages/Anuncio";
+import RotaProtegida from "./utils/RotaProtegida"; // Importa o componente
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />}>
-          {" "}
-        </Route>
-        <Route path="/login" element={<Login />}>
-          {" "}
-        </Route>
-        <Route path="/cadastro" element={<Cadastro />}>
-          {" "}
-        </Route>
-        <Route path="/recuperarSenha" element={<RecuperarSenha />}>
-          {" "}
-        </Route>
-        <Route path="*" element={<PagNaoEncontrada />}>
-          {" "}
-        </Route>
-        <Route path="/perfil" element={<Perfil />}>
-          {" "}
-        </Route>
-        <Route path="/anuncio/buscar" element={<Anuncio />}>
-          {" "}
-        </Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/recuperarSenha" element={<RecuperarSenha />} />
+        <Route path="/anuncio/buscar" element={<Anuncio />} />
+        <Route path="*" element={<PagNaoEncontrada />} />
+        
+        {/* aqui protege a rota /perfil com o componente HOC criado em utils, sempre que quiser proteger envelopa aassim*/}
+        <Route 
+          path="/perfil" 
+          element={
+            <RotaProtegida>
+              <Perfil />
+            </RotaProtegida>
+          } 
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -20,8 +20,7 @@ function Login({ onSubmit }) {
 				const data = await response.json();
 				localStorage.setItem("token", data.token);
 				alert("Login realizado com sucesso");
-				navigate("/anuncio/buscar");
-				// redireciona depois pro dashboard
+				navigate("/perfil");
 			} else {
 				const errorData = await response.json();
 				alert("Erro no login: " + errorData.message);
