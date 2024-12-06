@@ -6,6 +6,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fazerLogin } from "../../services/apiService";
 
+function decodeJWT(token) {
+    const payloadBase64 = token.split('.')[1]; // Pega a segunda parte do token
+    return atob(payloadBase64); // Decodifica de Base64 para string
+}
+
 function Login({ onSubmit }) {
 	const [email, setEmail] = useState("");
 	const [senha, setSenha] = useState("");
@@ -20,6 +25,9 @@ function Login({ onSubmit }) {
 				const data = await response.json();
 				localStorage.setItem("token", data.token);
 				alert("Login realizado com sucesso");
+                localStorage.setItem("User", decodeJWT(data.token));
+
+                console.log(decodeJWT(data.token));
 				navigate("/perfil");
 			} else {
 				const errorData = await response.json();

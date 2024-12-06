@@ -1,39 +1,10 @@
 .profileSider {
-    width: 450px;
     background-color: rgb(192, 192, 196);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 80px;
-}
-.profileImage {
-    width: 70%;
-    height: 20%;
-    margin-top: +80px;
-}
-.botaoAnuncios {
-    display: flex; /* ou use "grid" */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;
-    width: 200px;
-    height: 50px;
-    background-color: #d0cfd1;
-    border-radius: 6px;
-    text-align: center;
 
-}
-.botaoEditarPerfil {
-    display: flex; /* ou use "grid" */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;
-    width: 200px;
-    height: 50px;
-    background-color: #d0cfd1;
-    border-radius: 6px;
-    text-align: center;
-
-}
-.nomeUsuario {
-    font-size: 35px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-Top: 120px;
+    min-height: calc(100vh - 24px);
+    height: 100%;
 }

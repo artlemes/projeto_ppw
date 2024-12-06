@@ -1,45 +1,67 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Sider from "../../components/Sider/index.jsx";
-import ProfileBackground from "../../components/Profile-background/index.jsx";
-import styles from "./Perfil.module.css";
-import Header from "../../components/Header";
+import React, {useEffect} from "react";
+import {Button, Divider, Loader} from "rsuite";
+import AnuncioButton from "../../components/AnuncioButton";
+import useSendData from "../../services/useSendData";
 
-function Perfil() {
-    const navigate = useNavigate();
+function Perfil({ tituloDaPagina }) {
+    const { sendData, loading, error, data } = useSendData();
 
-    // aqui verifica se o token ta presente ao carregar a página
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            navigate("/login"); // redireciona para o login se o token não existir
-        }
-    }, [navigate]);
+        // Faz a requisição GET quando o componente é montado
+        sendData("anuncio/buscar", null, "GET");
+    }, [sendData]);
 
-    // função para realizar o logout
-    const handleLogout = () => {
-        localStorage.removeItem("token"); // remove o token
-        navigate("/login"); // redireciona para a pagina de login
+    const handleEdit = () => {
+        console.log("Editar anúncio");
     };
 
-    return (
-        <div className={styles.fundoPagina}>
-            <Header
-                botoesDireita={[
-                    { link: "#", legenda: "Sair", onClick: handleLogout }
-                ]}
-            />
-            <Sider />
-            <ProfileBackground tituloDaPagina={"Meus anúncios"} />
-            <Sider />
-            
-            {/* Botão de Sair adicional, caso queira outro fora do Header */}
-            <div className={styles.logoutContainer}>
-                <button onClick={handleLogout} className={styles.logoutButton}>
-                    Sair
-                </button>
+    const handleDelete = () => {
+        console.log("Excluir anúncio");
+    };
+
+    const handleAnuncioClick = () => {
+        console.log("Anúncio clicado");
+    };
+
+    if (loading) {
+        // Mostra o Loader enquanto os dados estão carregando
+        return (
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+                <Loader size="lg" content="Carregando anúncios..." />
             </div>
-        </div>
+        );
+    }
+
+    if (error) {
+        return <p>Erro ao carregar os anúncios: {error.message}</p>;
+    }
+
+    return (
+        <>
+            <h2 style={{ paddingTop: "120px" }}>{tituloDaPagina}</h2>
+            <Button appearance="primary">Criar anúncio</Button>
+            <Divider>
+                <h3>Anúncios postados</h3>
+            </Divider>
+            {data && Array.isArray(data) ? (
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+                    {data.map((anuncio) => (
+                        <AnuncioButton
+                            key={anuncio.id}
+                            nome={anuncio.nome}
+                            preco={anuncio.preco}
+                            descricao={anuncio.descricao}
+                            imagem={anuncio.imagem}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: "20px"}}>
+                    <p>Você ainda não publicou nenhum anúncio.</p>
+                    <Button appearance="primary">Criar seu primeiro anúncio</Button>
+                </div>
+            )}
+        </>
     );
 }
 

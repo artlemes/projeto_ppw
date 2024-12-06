@@ -10,11 +10,6 @@
     z-index: 10000;
 }
 
-.header span {
-    font-size: 2rem;
-    color: #ffffff;
-}
-
 .header a {
     text-decoration: none;
     padding-left: 30px;
@@ -23,22 +18,4 @@
 
 .header img {
     height: 75px;
-}
-
-.header nav a {
-    background-color: rgb(255, 255, 255);
-    color: #0c7bc2;
-    padding-block: 6px;
-    margin-right: 30px;
-    border-radius: 5px;
-    transition: background-color 0.4s ease, color 0.4s ease; 
-
-}
-
-.header nav a:hover {
-    background-color: #f7f7f7;
-    color: #084e7a;
-    transition: background-color 0.1s ease, color 0.1s ease; 
-
-    
 }

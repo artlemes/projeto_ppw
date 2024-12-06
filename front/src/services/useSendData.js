@@ -1,34 +1,3 @@
-/*
-Sugestão de uso no projeto galera:
-import useSendData from '../../Hooks/useSendData';
-
-const MeuComponenteTeste = ({ meusParametros }) => {
-    const { sendData, loading, error, data } = useSendData();
-    // sendData('endpoint', formData, 'POST'); é a função para o envio dos dados
-        // 'endpoint' é a rota final do backend
-        // formData é o objeto com os dados a serem enviados
-        // 'POST' ou 'GET' dependendo da requisição
-
-    const handleLogin = () => {
-        const formData = new FormData(); // Instanciação de um objeto FormData para agrupar os dados
-        formData.append('action', 'login'); // Essas 3 linhas são os campos do formulário "html" a serem enviados
-        formData.append('email', email); // Essas 3 linhas são os campos do formulário "html" a serem enviados
-        formData.append('password', password); // Essas 3 linhas são os campos do formulário "html" a serem enviados
-
-        sendData('user', formData, 'POST'); // Faz a requisição enviando os dados para o backend
-
-        // Abaixo: Verificação se a requisição foi atendida com sucesso (Neste caso o exemplo de uma autenticação)
-        if (data && data.authenticated) {
-            localStorage.setItem('token', data.token); // Armazena o token na localStorage
-            setIsAuthenticated(true); // Ativa a autenticação
-        }
-    };
-
-    //continuação do componente
-};
-export default MeuComponenteTeste;
-*/
-
 import { useState, useCallback } from 'react';
 import axios from 'axios';
 
@@ -40,35 +9,53 @@ axios.defaults.withCredentials = true;
  * @returns {Object} Um objeto contendo a função sendData e os estados de loading, error e data.
  */
 const useSendData = () => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false); // Estado de carregamento
+    const [error, setError] = useState(null); // Estado de erro
+    const [data, setData] = useState(null); // Estado da resposta
 
-    const sendData = useCallback(async (endpoint, dataToSend, method = 'POST', isContentTypeText = true) => {
+    const sendData = useCallback(async (endpoint, dataToSend = null, method = 'POST', isContentTypeText = true) => {
         setLoading(true);
         setError(null);
 
-        const url = `https://servidor.backend.url/${endpoint}`;
+        const token = localStorage.getItem("token") ?? "";
+
+        const url = `http://127.0.0.1:8080/${endpoint}`;
+
+        // Configuração dos headers
+        const headers = {
+            authorization: `Bearer ${token}`,
+        };
+
+        // Define Content-Type apenas para POST ou PUT
+        if (isContentTypeText && ['POST', 'PUT'].includes(method)) {
+            headers['Content-Type'] = 'application/json';
+        }
+
         const config = {
-            headers: {
-                'Content-Type': isContentTypeText ? 'text/html' : 'multipart/form-data'
-            },
-            withCredentials: true
+            headers,
+            withCredentials: false, // Desabilita envio automático de cookies
         };
 
         try {
-            let response;
+            // Executa a requisição conforme o método HTTP
+            const response = await axios({
+                method,
+                url,
+                data: dataToSend,
+                ...config,
+            });
 
-            if (method === 'POST') {
-                response = await axios.post(url, dataToSend, config);
-            } else if (method === 'GET') {
-                response = await axios.get(url, config);
-            } else {
-                throw new Error(`Método HTTP não suportado: ${method}`);
-            }
+            // Armazena a resposta na variável de estado
             setData(response.data);
         } catch (err) {
-            setError(err);
+            // Captura detalhes do erro
+            console.error("Erro na requisição:", err);
+
+            // Extrai informações úteis para o estado de erro
+            setError({
+                message: err.response?.data?.message || err.message,
+                status: err.response?.status,
+            });
         } finally {
             setLoading(false);
         }

@@ -1,6 +1,6 @@
 // Configuração da URL base da API
 //const API_BASE_URL = "http://127.0.0.1:8080/api";
-const API_BASE_URL = "http://127.0.0.1:8080";
+const API_BASE_URL = "http://127.0.0.1:8080"; //"https://bk-ti1x.onrender.com";
 
 /*
  * Função para cadastrar um usuário.
@@ -31,16 +31,4 @@ export const fazerLogin = async (userData) => {
     },
     body: JSON.stringify(userData),
   });
-};
-
-export const buscarAnuncio = async () => {
-  const token = localStorage.getItem("token");
-  const options = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  return fetch(`${API_BASE_URL}/anuncio/buscar`, options);
 };

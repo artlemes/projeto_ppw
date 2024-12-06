@@ -1,22 +1,8 @@
 import styles from "./Header.module.css"
 import { Link } from "react-router-dom"
-import BotaoPadraoPequeno from "../BotaoPadraoPequeno";
+import MenuDropdownUsuario from "../MenuDropdownUsuario";
 
-
-function Header({ botoesDireita }) {
-    let listaDeBotoesDireita = [];
-
-    botoesDireita.forEach((botao, index) => {
-        listaDeBotoesDireita.push(
-            <BotaoPadraoPequeno
-                key={index}
-                legenda={botao.legenda}
-                link={botao.link}
-                onClick={botao.onClick} 
-            />
-        );
-    });
-
+function Header() {
     return (
         <header className={styles.header}>
             <Link to="/">
@@ -24,7 +10,7 @@ function Header({ botoesDireita }) {
             </Link>
 
             <div>
-                {listaDeBotoesDireita}
+                <MenuDropdownUsuario/>
             </div>
         </header>
     );
