@@ -4,9 +4,11 @@ import styles from "./Formulario.module.css"
 function Formulario( {children} ) {
 
     return (
-        <section className={styles.formulario}>
+        <>
+        <div className={styles.formulario}>
             {children}
-        </section>
+        </div>
+        </>
     )
 
 }
