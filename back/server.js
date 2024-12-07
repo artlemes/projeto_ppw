@@ -16,7 +16,7 @@ const startServer = () => {
   server.use("/", routes);
   server.use(errorHandler);
 
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 8080;
 
   server.listen(port, () => {
     console.log(`Rodando na porta ${port}!`);
