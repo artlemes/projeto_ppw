@@ -19,7 +19,7 @@ const useSendData = () => {
 
         const token = localStorage.getItem("token") ?? "";
 
-        const url = `http://127.0.0.1:8080/${endpoint}`;
+        const url = `https://bk-ti1x.onrender.com/${endpoint}`;
 
         // Configuração dos headers
         const headers = {

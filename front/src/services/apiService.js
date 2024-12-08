@@ -1,6 +1,6 @@
 // Configuração da URL base da API
 //const API_BASE_URL = "http://127.0.0.1:8080/api";
-const API_BASE_URL = "http://127.0.0.1:8080"; //"https://bk-ti1x.onrender.com";
+const API_BASE_URL = "https://bk-ti1x.onrender.com"; //"https://bk-ti1x.onrender.com";
 
 /*
  * Função para cadastrar um usuário.
