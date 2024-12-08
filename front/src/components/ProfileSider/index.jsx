@@ -23,13 +23,13 @@ function ProfileSider() {
                     </Button>
                 </Nav.Item>
                 <Nav.Item>
-                    <Button
-                        block
-                        appearance="default"
-                        onClick={() => navigate("/perfil")}
+                <Button
+                    block
+                    appearance="default"
+                    onClick={() => navigate("/perfil/editar")}
                     >
-                        Editar perfil
-                    </Button>
+                    Editar perfil
+                </Button>
                 </Nav.Item>
             </Nav>
         </Container>

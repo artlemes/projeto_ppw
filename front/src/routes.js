@@ -9,6 +9,7 @@ import Anuncio from "./pages/Anuncio";
 import Padrao from "./pages/Padrao";
 import RotaProtegida from "./utils/RotaProtegida";
 import CriarAnuncio from "./pages/CriarAnuncio"; // Importa o componente
+import EditarPerfil from "./pages/EditarPerfil";
 
 function AppRoutes() {
     return (
@@ -22,6 +23,7 @@ function AppRoutes() {
 
                 {/* aqui protege a rota /perfil com o componente HOC criado em utils, sempre que quiser proteger envelopa aassim*/}
                 <Route path="/perfil" element={<RotaProtegida><Padrao><Perfil/></Padrao></RotaProtegida>}/>
+                <Route path="/perfil/editar"element={<RotaProtegida><Padrao><EditarPerfil /></Padrao></RotaProtegida>}/>
                 <Route path="/anuncio/buscar" element={<RotaProtegida><Padrao><Anuncio/></Padrao></RotaProtegida>}/>
                 <Route path="/" element={<RotaProtegida><Home/></RotaProtegida>}/>
                 <Route path="/criaranuncio" element={<RotaProtegida><Padrao><CriarAnuncio/></Padrao></RotaProtegida>}/>
