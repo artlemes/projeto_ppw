@@ -9,9 +9,6 @@ function RecuperarSenha() {
 		<>
 		<Container>
 			<Formulario>
-				<div className={styles.logoWrapper}>
-					<img src="/images/logopgw2.png" alt="Logo" />
-				</div>
 				<form>
 					<h3>Recuperar senha</h3>
 					<p></p>

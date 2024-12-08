@@ -1,15 +1,17 @@
 .formulario {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f8fa;
-    padding: 0;
+    width:fit-content;
+    height:fit-content;
+    display: block;
     text-align: left;
+    position:relative;
+    overflow-y:auto;
+    left: 50%;
+    top: 50vh;
+    transform: translate(-50%,-50%);
 }
 
 .formulario form {
+    margin: 20px 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -58,4 +60,15 @@
 
 .formulario button:hover {
     background-color: #084e7a;
+}
+
+.logoWrapper {
+    top:0;
+    position: absolute;
+    text-align: center;
+}
+
+.logoWrapper img {
+    max-height: 10vh; 
+    height: 100px;
 }

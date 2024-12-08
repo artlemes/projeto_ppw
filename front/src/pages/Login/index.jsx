@@ -42,9 +42,6 @@ function Login() {
 		<>
         <Container>
             <Formulario>
-                <div className={styles.logoWrapper}>
-                    <img src="/images/logopgw2.png" alt="Logo" />
-                </div>
                 <form onSubmit={handleSubmit}>
                     <h3>Login</h3>
                     <p></p>
@@ -72,8 +69,8 @@ function Login() {
                     <img src="/images/vertical_sigla_fundo_claro.png" />
                 </div> */}
             </Formulario>
-            <Footer></Footer>
         </Container>
+        <Footer></Footer>
 		</>
 	);
 }

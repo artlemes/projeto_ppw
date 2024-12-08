@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { format, addMonths } from 'date-fns';
+﻿import React, { useEffect, useState } from 'react';
 import {
     Panel,
     Form,
@@ -8,47 +7,17 @@ import {
     Input,
     SelectPicker
 } from 'rsuite';
-import { useNavigate } from "react-router-dom";
 import 'rsuite/dist/rsuite.min.css';
 import useSendData from "../../services/useSendData";
 
-function CriarAnuncio () {
+function CriarAnuncio() {
     const { sendData, loading, error, data } = useSendData();
     const [formData, setFormData] = useState({
         titulo: '',
-        categoria_id: '',
-        descricao: '',
-        preco: '',
-        usuario_id: JSON.parse(localStorage.getItem('User')).id,
-        data_expiracao: format(addMonths(new Date(), 1), 'yyyy-MM-dd'),
-        visibilidade: 'publico'
+        categoria: '',
+        descricao: ''
     });
-
-    const navigate = useNavigate();
-
     const [categorias, setCategorias] = useState([]);
-
-    // Função para carregar as categorias
-    const carregarCategorias = async () => {
-        await sendData("categoria/buscar", null, "GET", false);
-    };
-
-    // UseEffect para carregar as categorias ao montar o componente
-    useEffect(() => {
-        carregarCategorias();
-    }, []);
-
-    // Atualiza as categorias quando os dados são recebidos
-    useEffect(() => {
-        if (data) {
-            const formattedCategories = data.map(cat => ({
-                label: cat.nome,
-                value: cat._id
-            }));
-            console.log(formattedCategories);
-            setCategorias(formattedCategories);
-        }
-    }, [data]);
 
     const handleChange = (value, name) => {
         setFormData(prev => ({
@@ -60,8 +29,18 @@ function CriarAnuncio () {
     const handleSubmit = async () => {
         await sendData("anuncio", formData, "POST");
         console.log(formData);
-        navigate("/perfil");
     };
+
+    useEffect(() => {
+        const fetchCategorias = async () => {
+            const response = await sendData("categorias/buscar", null, "GET");
+            if (response) {
+                setCategorias(response.data); // Supondo que o endpoint retorna um array de categorias
+            }
+        };
+
+        fetchCategorias();
+    }, [sendData]);
 
     return (
         <Panel
@@ -114,17 +93,8 @@ function CriarAnuncio () {
                             data={categorias}
                             placeholder="Selecione a categoria"
                             style={{ width: '100%' }}
-                            value={formData.categoria_id}
-                            onChange={(value) => handleChange(value, 'categoria_id')}
-                            loading={loading}
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.ControlLabel>Preço</Form.ControlLabel>
-                        <Input
-                            placeholder="Insira o título!"
-                            value={formData.preco}
-                            onChange={(value) => handleChange(value, 'preco')}
+                            value={formData.categoria}
+                            onChange={(value) => handleChange(value, 'categoria')}
                         />
                     </Form.Group>
 

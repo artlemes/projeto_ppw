@@ -46,7 +46,6 @@ function Home() {  //renderiza
       </section>
 
       </Container>
-
       <Footer></Footer>
     </>
   );

@@ -97,9 +97,6 @@ function Cadastro() {
 		<>
 		<Container>
 			<Formulario>
-				<div className={styles.logoWrapper}>
-					<img src="/images/logopgw2.png" alt="Logo" />
-				</div>
 
 				<form onSubmit={handleSubmit}>
 					<h3>Cadastro</h3>
@@ -146,8 +143,8 @@ function Cadastro() {
 					<img src="/images/vertical_sigla_fundo_claro.png" />
 				</div> */}
 			</Formulario>
-			<Footer></Footer>
 		</Container>
+		<Footer></Footer>
 		</>
 	);
 }
