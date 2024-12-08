@@ -13,7 +13,7 @@
 .dadosAnuncio {
     background-color: rgb(180, 179, 179);
     display: flex;
-    flex-direction: line;
+    flex-direction: column;
     height: 100%;
 }
 .descricao {
