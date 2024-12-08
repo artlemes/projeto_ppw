@@ -1,33 +1,37 @@
 import React, {useEffect} from "react";
+import {useNavigate} from 'react-router-dom';
 import {Button, Divider, Loader} from "rsuite";
-import AnuncioButton from "../../components/AnuncioButton";
+import AnuncioCard from "../../components/AnuncioCard";
 import useSendData from "../../services/useSendData";
 
-function Perfil({ tituloDaPagina }) {
-    const { sendData, loading, error, data } = useSendData();
+function Perfil({tituloDaPagina}) {
+    const {sendData, loading, error, data} = useSendData();
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/criaranuncio');
+    };
 
     useEffect(() => {
-        // Faz a requisição GET quando o componente é montado
         sendData("anuncio/buscar", null, "GET");
     }, [sendData]);
 
-    const handleEdit = () => {
-        console.log("Editar anúncio");
+    const handleEdit = (id) => {
+        console.log(`Editar anúncio com ID: ${id}`);
     };
 
-    const handleDelete = () => {
-        console.log("Excluir anúncio");
+    const handleDelete = (id) => {
+        console.log(`Excluir anúncio com ID: ${id}`);
     };
 
-    const handleAnuncioClick = () => {
-        console.log("Anúncio clicado");
+    const handleAnuncioClick = (id) => {
+        console.log(`Anúncio clicado com ID: ${id}`);
     };
 
     if (loading) {
-        // Mostra o Loader enquanto os dados estão carregando
         return (
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-                <Loader size="lg" content="Carregando anúncios..." />
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
+                <Loader size="lg" content="Carregando anúncios..."/>
             </div>
         );
     }
@@ -38,27 +42,27 @@ function Perfil({ tituloDaPagina }) {
 
     return (
         <>
-            <h2 style={{ paddingTop: "120px" }}>{tituloDaPagina}</h2>
-            <Button appearance="primary">Criar anúncio</Button>
+            <h2 style={{paddingTop: "120px"}}>{tituloDaPagina}</h2>
+            <Button appearance="primary" onClick={handleClick}>Criar anúncio</Button>
             <Divider>
                 <h3>Anúncios postados</h3>
             </Divider>
             {data && Array.isArray(data) ? (
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+                <div style={{display: "flex", flexWrap: "wrap", gap: "20px"}}>
                     {data.map((anuncio) => (
-                        <AnuncioButton
-                            key={anuncio.id}
-                            nome={anuncio.nome}
-                            preco={anuncio.preco}
-                            descricao={anuncio.descricao}
-                            imagem={anuncio.imagem}
+                        <AnuncioCard
+                            key={anuncio._id}
+                            onEdit={() => handleEdit(anuncio._id)}
+                            onDelete={() => handleDelete(anuncio._id)}
+                            imageUrl={anuncio.imageUrl || "https://cdn-icons-png.flaticon.com/128/3774/3774278.png"}
+                            titulo={anuncio.titulo || "Descrição indisponível"}
                         />
                     ))}
                 </div>
             ) : (
                 <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: "20px"}}>
                     <p>Você ainda não publicou nenhum anúncio.</p>
-                    <Button appearance="primary">Criar seu primeiro anúncio</Button>
+                    <Button appearance="primary" onClick={handleClick}>Criar seu primeiro anúncio</Button>
                 </div>
             )}
         </>

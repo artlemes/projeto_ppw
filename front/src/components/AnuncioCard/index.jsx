@@ -2,7 +2,7 @@ import React from "react";
 import {Button, FlexboxGrid, Panel} from "rsuite";
 import {Edit, Trash} from "@rsuite/icons";
 
-function AnuncioCard({imageUrl, descricao, onEdit, onDelete}) {
+function AnuncioCard({imageUrl, titulo, onEdit, onDelete}) {
     return (
         <Panel bordered className="mb-3" style={{width: "400px"}}>
             <FlexboxGrid>
@@ -17,7 +17,7 @@ function AnuncioCard({imageUrl, descricao, onEdit, onDelete}) {
                     />
                 </FlexboxGrid.Item>
                 <FlexboxGrid.Item colspan={18} style={{paddingLeft: 20}}>
-                    <p>{descricao}</p>
+                    <p>{titulo}</p>
                     <div style={{marginTop: 15}}>
                         <Button appearance="subtle" startIcon={<Edit/>} style={{marginRight: 10}} onClick={onEdit}>
                             Editar anúncio

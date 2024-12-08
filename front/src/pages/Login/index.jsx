@@ -11,7 +11,7 @@ function decodeJWT(token) {
     return atob(payloadBase64); // Decodifica de Base64 para string
 }
 
-function Login({ onSubmit }) {
+function Login() {
 	const [email, setEmail] = useState("");
 	const [senha, setSenha] = useState("");
 	const navigate = useNavigate();
