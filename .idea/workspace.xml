@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="181e9420-3548-4734-9811-d3390d708a25" name="Changes" comment="Início da integração front-back" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JSX File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="jonathnperr &lt;jonathnperr@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Carlosad1981&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/artlemes/projeto_ppw&quot;,
+    &quot;accountId&quot;: &quot;c5b2d096-66ff-47d7-b076-bc2f9afd8a4e&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2pj5rxg5X6DzxhPcWS7WzXhEJRi" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "F:/Server/Aulas/WEB2/front/src/pages",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.general",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Server\Aulas\WEB2\front\src\pages" />
+      <recent name="F:\Server\Aulas\WEB2\front\src\components" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Server\Aulas\WEB2\front\src\components" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-WS-243.21565.180" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="181e9420-3548-4734-9811-d3390d708a25" name="Changes" comment="" />
+      <created>1733266846793</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733266846793</updated>
+      <workItem from="1733266848203" duration="4886000" />
+      <workItem from="1733352643646" duration="3617000" />
+      <workItem from="1733418093794" duration="1157000" />
+      <workItem from="1733420493485" duration="782000" />
+      <workItem from="1733421646962" duration="1521000" />
+      <workItem from="1733423335650" duration="12388000" />
+      <workItem from="1733442736178" duration="5412000" />
+      <workItem from="1733504444016" duration="10033000" />
+      <workItem from="1733515850024" duration="7518000" />
+      <workItem from="1733624848916" duration="4287000" />
+    </task>
+    <task id="LOCAL-00001" summary="Limpeza">
+      <option name="closed" value="true" />
+      <created>1733269465346</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733269465346</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Limpeza">
+      <option name="closed" value="true" />
+      <created>1733269564345</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733269564345</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Implementação da autenticação em /perfil&#10;&#10;Usuário não logado não conseguirá acessar a rota principal &quot;/&quot;">
+      <option name="closed" value="true" />
+      <created>1733511344933</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733511344933</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Implementação da autenticação em /perfil&#10;&#10;Usuário não logado não conseguirá acessar a rota principal &quot;/&quot;">
+      <option name="closed" value="true" />
+      <created>1733627964378</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733627964378</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Início da integração front-back">
+      <option name="closed" value="true" />
+      <created>1733629122394</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733629122394</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Início da integração front-back">
+      <option name="closed" value="true" />
+      <created>1733629195527</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733629195527</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Limpeza" />
+    <MESSAGE value="Implementação da autenticação em /perfil&#10;&#10;Usuário não logado não conseguirá acessar a rota /pefil" />
+    <MESSAGE value="Implementação da autenticação em /perfil&#10;&#10;Usuário não logado não conseguirá acessar a rota principal &quot;/&quot;" />
+    <MESSAGE value="Início da integração front-back" />
+    <option name="LAST_COMMIT_MESSAGE" value="Início da integração front-back" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/front/src/components/BotaoPadraoPequeno/index.jsx</url>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

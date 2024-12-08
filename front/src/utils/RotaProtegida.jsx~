@@ -1,0 +1,47 @@
+import {Navigate, useNavigate} from "react-router-dom";
+import {Container, Content, Footer as RsuiteFooter, Header as RsuiteHeader, Sidebar} from "rsuite";
+import Header from "../components/Header";
+import ProfileSider from "../components/ProfileSider";
+import Footer from "../components/Footer";
+import React, {useEffect} from "react";
+
+const RotaProtegida = ({ children }) => {
+    const navigate = useNavigate();
+
+    // aqui verifica se o token ta presente ao carregar a página
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login"); // redireciona para o login se o token não existir
+        }
+    }, [navigate]);
+
+    // função para realizar o logout
+    const handleLogout = () => {
+        localStorage.removeItem("token"); // remove o token
+        navigate("/login"); // redireciona para a pagina de login
+    };
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        return <Navigate to="/login" replace />;
+    }
+    return (
+        <Container>
+            <RsuiteHeader>
+                <Header
+                    botoesDireita={[
+                        { link: "#", legenda: "Sair", onClick: handleLogout }
+                    ]}
+                />
+            </RsuiteHeader>
+            <Container>
+                <Sidebar><ProfileSider /></Sidebar>
+                <Content>{children}</Content>
+            </Container>
+            <RsuiteFooter><Footer /></RsuiteFooter>
+        </Container>
+    );
+};
+
+export default RotaProtegida;
