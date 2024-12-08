@@ -1,0 +1,62 @@
+.listagem-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Filtros */
+.filtros {
+    display: flex;
+    gap: 10px;
+    margin: 20px;
+    align-items: center;
+}
+
+.select-picker, .input-filtro {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Lista de anúncios */
+.lista-anuncios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card-anuncio {
+    width: 250px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.anuncio-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.anuncio-titulo {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.anuncio-descricao {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Carregamento e mensagens */
+.loader-container, .nenhum-anuncio {
+    text-align: center;
+    margin-top: 20px;
+}
