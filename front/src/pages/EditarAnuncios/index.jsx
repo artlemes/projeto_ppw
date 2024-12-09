@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Panel,
     Form,
@@ -9,18 +9,20 @@ import {
 } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import useSendData from "../../services/useSendData";
+import { useParams } from 'react-router-dom';
 
-function CriarAnuncio() {
-    const { sendData, loading, error, data } = useSendData();
+function EditarAnuncio() { // Recebe o ID do anúncio como prop
+    const anuncioId = useParams()
+    const { sendData } = useSendData();
     const [formData, setFormData] = useState({
         titulo: '',
         categoria: '',
         descricao: ''
     });
     const [categorias, setCategorias] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (value, name) => {
-        console.log(value)
         setFormData(prev => ({
             ...prev,
             [name]: value
@@ -28,45 +30,76 @@ function CriarAnuncio() {
     };
 
     const handleSubmit = async () => {
-        await sendData("anuncio", formData, "POST");
-        console.log(formData);
+        setLoading(true);
+        try {
+            await sendData(`anuncio/${anuncioId}`, formData, "PATCH"); // Envia as alterações como PUT
+            console.log("Anúncio atualizado:", formData);
+        } catch (error) {
+            console.error("Erro ao atualizar o anúncio:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
+        // Carregar as categorias
         const fetchCategorias = async () => {
             const token = localStorage.getItem('token');
-        
             try {
                 const response = await fetch("https://bk-ti1x.onrender.com/categoria/buscar", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}` // Inclui o token no cabeçalho
+                        "Authorization": `Bearer ${token}`
                     }
                 });
-        
+
                 if (!response.ok) {
                     throw new Error(`Erro HTTP: ${response.status}`);
                 }
-        
-                const data = await response.json();
 
-                // Transformando para o formato esperado pelo SelectPicker
+                const data = await response.json();
                 const categoriasFormatadas = data.map((categoria) => ({
-                    label: categoria.nome, // Nome exibido
-                    value: categoria.id,   // Valor retornado ao selecionar
+                    label: categoria.nome,
+                    value: categoria.id
                 }));
 
-                setCategorias(categoriasFormatadas)
-                
+                setCategorias(categoriasFormatadas);
             } catch (error) {
-                console.error("Erro na requisição:", error);
-                return null; // Retorna null em caso de erro
+                console.error("Erro ao buscar categorias:", error);
+            }
+        };
+
+        // Carregar os dados do anúncio para edição
+        const fetchAnuncio = async () => {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch(`https://bk-ti1x.onrender.com/anuncio/${anuncioId}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setFormData({
+                    titulo: data.titulo,
+                    categoria: data.categoriaId, // Supondo que o backend retorna o ID da categoria
+                    descricao: data.descricao
+                });
+            } catch (error) {
+                console.error("Erro ao carregar anúncio:", error);
             }
         };
 
         fetchCategorias();
-    }, [sendData]);
+        fetchAnuncio();
+    }, [anuncioId]);
 
     return (
         <Panel
@@ -76,7 +109,7 @@ function CriarAnuncio() {
                     justifyContent: 'center',
                     marginBottom: '20px'
                 }}>
-                    <h2>Criar anúncio</h2>
+                    <h2>Editar Anúncio</h2>
                 </div>
             }
             bordered
@@ -140,9 +173,10 @@ function CriarAnuncio() {
                             <Button
                                 appearance="primary"
                                 onClick={handleSubmit}
+                                loading={loading}
                                 block
                             >
-                                Criar anúncio
+                                Atualizar anúncio
                             </Button>
                         </ButtonToolbar>
                     </Form.Group>
@@ -152,4 +186,4 @@ function CriarAnuncio() {
     );
 }
 
-export default CriarAnuncio;
+export default EditarAnuncio;

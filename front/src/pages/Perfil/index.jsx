@@ -17,7 +17,7 @@ function Perfil({tituloDaPagina}) {
     }, [sendData]);
 
     const handleEdit = (id) => {
-        console.log(`Editar anúncio com ID: ${id}`);
+        navigate(`/anuncio/editar/${id}`)
     };
 
     const handleDelete = (id) => {
@@ -54,6 +54,7 @@ function Perfil({tituloDaPagina}) {
                             key={anuncio._id}
                             onEdit={() => handleEdit(anuncio._id)}
                             onDelete={() => handleDelete(anuncio._id)}
+                            onClick={() => handleAnuncioClick(anuncio._id)}
                             imageUrl={anuncio.imageUrl || "https://cdn-icons-png.flaticon.com/128/3774/3774278.png"}
                             titulo={anuncio.titulo || "Descrição indisponível"}
                         />

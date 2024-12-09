@@ -11,6 +11,7 @@ import RotaProtegida from "./utils/RotaProtegida";
 import CriarAnuncio from "./pages/CriarAnuncio"; // Importa o componente
 import ListagemDeAnuncios from "./pages/ListagemDeAnuncios";
 import EditarPerfil from "./pages/EditarPerfil";
+import EditarAnuncio from "./pages/EditarAnuncios";
 
 function AppRoutes() {
     return (
@@ -29,6 +30,7 @@ function AppRoutes() {
                 <Route path="/anuncio/buscar" element={<RotaProtegida><Padrao><Anuncio/></Padrao></RotaProtegida>}/>
                 <Route path="/" element={<RotaProtegida><Home/></RotaProtegida>}/>
                 <Route path="/criaranuncio" element={<RotaProtegida><Padrao><CriarAnuncio/></Padrao></RotaProtegida>}/>
+                <Route path="/anuncio/editar/:id" element={<RotaProtegida><Padrao><EditarAnuncio/></Padrao></RotaProtegida>}/>
             </Routes>
         </BrowserRouter>
     );
