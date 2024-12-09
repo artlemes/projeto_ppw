@@ -33,12 +33,34 @@ function CriarAnuncio() {
 
     useEffect(() => {
         const fetchCategorias = async () => {
-            const response = await sendData("categoria/buscar", null, "GET");
-            if (response) {
-                setCategorias(response.data); // Supondo que o endpoint retorna um array de categorias
-            }
-            else {
-                console.log('nao respondeu nada porra')
+            const token = localStorage.getItem('token');
+        
+            try {
+                const response = await fetch("https://bk-ti1x.onrender.com/categoria/buscar", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}` // Inclui o token no cabeçalho
+                    }
+                });
+        
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+        
+                const data = await response.json();
+
+                // Transformando para o formato esperado pelo SelectPicker
+                const categoriasFormatadas = data.map((categoria) => ({
+                    label: categoria.nome, // Nome exibido
+                    value: categoria.id,   // Valor retornado ao selecionar
+                }));
+
+                setCategorias(categoriasFormatadas)
+                
+            } catch (error) {
+                console.error("Erro na requisição:", error);
+                return null; // Retorna null em caso de erro
             }
         };
 
