@@ -5,7 +5,10 @@ import {
     ButtonToolbar,
     Button,
     Input,
-    SelectPicker
+    SelectPicker,
+    DatePicker,
+    Message,
+    useToaster,
 } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import useSendData from "../../services/useSendData";
@@ -14,23 +17,51 @@ function CriarAnuncio() {
     const { sendData, loading, error, data } = useSendData();
     const [formData, setFormData] = useState({
         titulo: '',
-        categoria: '',
-        descricao: ''
+        categoria_id: '',
+        descricao: '',
+        preco: '',
+        data_expiracao: null,
+        visibilidade: 'privado', // Valor padrão
     });
     const [categorias, setCategorias] = useState([]);
+    const [formError, setFormError] = useState(''); 
+    const toaster = useToaster(); 
 
     const handleChange = (value, name) => {
-        console.log(value)
         setFormData(prev => ({
             ...prev,
-            [name]: value
+            [name]: value,
         }));
     };
 
     const handleSubmit = async () => {
-        await sendData("anuncio", formData, "POST");
-        console.log(formData);
-    };
+        if (!formData.usuario_id) {
+          console.error("Usuário não autenticado");
+          return;
+        }
+      
+        // Garantir que o preço seja um número
+        const formDataToSend = {
+          ...formData,
+          preco: Number(formData.preco),
+          data_expiracao: new Date(formData.data_expiracao).toISOString(),  // Converter data para o formato ISO
+        };
+      
+        try {
+          const response = await sendData("anuncio", formDataToSend, "POST");
+          toaster.push(
+            <Message showIcon type="success">Anúncio criado com sucesso!</Message>,
+            { placement: 'topCenter' }
+          );
+        } catch (err) {
+          console.error("Erro na requisição:", err);
+          toaster.push(
+            <Message showIcon type="error">Erro ao criar anúncio!</Message>,
+            { placement: 'topCenter' }
+          );
+        }
+      };
+      
 
     useEffect(() => {
         const fetchCategorias = async () => {
@@ -41,7 +72,7 @@ function CriarAnuncio() {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}` // Inclui o token no cabeçalho
+                        "Authorization": `Bearer ${token}`,
                     }
                 });
         
@@ -50,23 +81,19 @@ function CriarAnuncio() {
                 }
         
                 const data = await response.json();
-
-                // Transformando para o formato esperado pelo SelectPicker
                 const categoriasFormatadas = data.map((categoria) => ({
-                    label: categoria.nome, // Nome exibido
-                    value: categoria.id,   // Valor retornado ao selecionar
+                    label: categoria.nome,
+                    value: categoria._id,
                 }));
 
-                setCategorias(categoriasFormatadas)
-                
+                setCategorias(categoriasFormatadas);
             } catch (error) {
-                console.error("Erro na requisição:", error);
-                return null; // Retorna null em caso de erro
+                console.error("Erro ao buscar categorias:", error);
             }
         };
 
         fetchCategorias();
-    }, [sendData]);
+    }, []);
 
     return (
         <Panel
@@ -74,7 +101,7 @@ function CriarAnuncio() {
                 <div style={{
                     display: 'flex',
                     justifyContent: 'center',
-                    marginBottom: '20px'
+                    marginBottom: '20px',
                 }}>
                     <h2>Criar anúncio</h2>
                 </div>
@@ -91,15 +118,15 @@ function CriarAnuncio() {
                 flexDirection: 'column',
                 alignContent: 'center',
                 gap: '15px',
-                textAlign: 'center'
+                textAlign: 'center',
             }}>
                 <img
-                    src='https://cdn-icons-png.flaticon.com/128/3774/3774278.png'
+                    src="https://cdn-icons-png.flaticon.com/128/3774/3774278.png"
                     alt="Ícone de anúncio"
                     style={{
                         width: '200px',
                         height: '200px',
-                        alignSelf: 'center'
+                        alignSelf: 'center',
                     }}
                 />
 
@@ -119,9 +146,12 @@ function CriarAnuncio() {
                             data={categorias}
                             placeholder="Selecione a categoria"
                             style={{ width: '100%' }}
-                            value={formData.categoria}
-                            onChange={(value) => handleChange(value, 'categoria')}
+                            value={formData.categoria_id}
+                            onChange={(value) => handleChange(value, 'categoria_id')}
                         />
+                        {formError && !formData.categoria_id && (
+                            <span style={{ color: 'red' }}>Selecione uma categoria!</span>
+                        )}
                     </Form.Group>
 
                     <Form.Group>
@@ -136,10 +166,55 @@ function CriarAnuncio() {
                     </Form.Group>
 
                     <Form.Group>
+                        <Form.ControlLabel>Preço</Form.ControlLabel>
+                        <Input
+                            type="number"
+                            placeholder="Insira o preço!"
+                            value={formData.preco}
+                            onChange={(value) => handleChange(value, 'preco')}
+                        />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.ControlLabel>Data de Expiração</Form.ControlLabel>
+                        <DatePicker
+                            format="dd-mm-yyyy"
+                            value={formData.data_expiracao}
+                            onChange={(value) => handleChange(value, 'data_expiracao')}
+                            placeholder="Selecione a data de expiração"
+                            style={{ width: '100%' }}
+                        />
+                        {formError && !formData.data_expiracao && (
+                            <span style={{ color: 'red' }}>A data de expiração é obrigatória!</span>
+                        )}
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.ControlLabel>Visibilidade</Form.ControlLabel>
+                        <SelectPicker
+                            data={[
+                                { label: 'Público', value: 'publico' },
+                                { label: 'Privado', value: 'privado' },
+                                { label: 'Compartilhado', value: 'compartilhado' }
+                            ]}
+                            value={formData.visibilidade}
+                            onChange={(value) => handleChange(value, 'visibilidade')}
+                            style={{ width: '100%' }}
+                        />
+                    </Form.Group>
+
+                    {formError && (
+                        <Message showIcon type="error">
+                            {formError}
+                        </Message>
+                    )}
+
+                    <Form.Group>
                         <ButtonToolbar>
                             <Button
                                 appearance="primary"
                                 onClick={handleSubmit}
+                                loading={loading}
                                 block
                             >
                                 Criar anúncio
