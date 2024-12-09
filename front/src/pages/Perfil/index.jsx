@@ -35,7 +35,7 @@ function Perfil({ tituloDaPagina }) {
     };
 
     const handleDelete = (id) => {
-        console.log(`Excluir anúncio com ID: ${id}`);
+        sendData(`anuncio/${id}`, null, "DELETE")
     };
 
     const handleAnuncioClick = (id) => {

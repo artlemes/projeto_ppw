@@ -73,6 +73,7 @@ function AnuncioUnico() {
                         <div className={styles.descricao}>
                             <h3>Descrição</h3>
                             <p>{anuncio.descricao || "Descrição indisponível"}</p>
+                            <p>Preço: R${anuncio.preco || "Preço indisponivel"}</p>
                         </div>
 
                         <div className={styles.imagensAnuncio}>

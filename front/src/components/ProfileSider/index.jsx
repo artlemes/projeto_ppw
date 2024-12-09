@@ -21,7 +21,7 @@ function ProfileSider() {
             <Nav vertical>
                 <Nav.Item>
                     <Button block appearance="primary" onClick={() => navigate("/listagem")}>
-                        Anúncios
+                        Anúncios Disponíveis
                     </Button>
                 </Nav.Item>
                 <Nav.Item>
