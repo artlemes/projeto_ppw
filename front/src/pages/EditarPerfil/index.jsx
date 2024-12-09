@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import useSendData from "../../services/useSendData.js";
 
 function EditarPerfil() {
-  const { sendData, loading, error, data } = useSendData();
+  const { sendData, loading, error, data } = useSendData(); 
   const [userData, setUserData] = useState(null);
   const [formData, setFormData] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);  // Novo estado para o sucesso da exclusão
   const navigate = useNavigate();
 
   const model = Schema.Model({
@@ -36,7 +37,33 @@ function EditarPerfil() {
     await sendData(`usuario/${userData?._id}`, formData, "PATCH");
     if (!error) {
       setSuccess(true);
-      setTimeout(() => navigate("/perfil"), 2000);
+      setTimeout(() => navigate("/perfil"), 2000); 
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm("Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.")) {
+      try {
+        const token = localStorage.getItem("token"); // Assume que o token está armazenado no localStorage
+        const response = await fetch(`https://bk-ti1x.onrender.com/usuario/${userData?._id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Erro ao excluir conta");
+        }
+
+        setDeleteSuccess(true);
+        setTimeout(() => {
+          navigate("/login"); // Redireciona para login após a exclusão
+        }, 2000);
+      } catch (err) {
+        setDeleteSuccess(false);
+        alert("Erro ao excluir conta: " + err.message);
+      }
     }
   };
 
@@ -46,7 +73,7 @@ function EditarPerfil() {
   }
 
   return (
-    <Panel header="Editar Perfil" bordered style={{ maxWidth: 600, margin: "auto", marginTop: "130px"  }}>
+    <Panel header="Editar Perfil" bordered style={{ maxWidth: 600, margin: "auto", marginTop: "130px" }}>
       <Form
         fluid
         model={model}
@@ -72,12 +99,18 @@ function EditarPerfil() {
         </Form.Group>
         {error && <Message type="error">{error.message}</Message>}
         {success && <Message type="success">Perfil atualizado com sucesso!</Message>}
+        {deleteSuccess && <Message type="success">Conta excluída com sucesso. Redirecionando...</Message>}
         <Form.Group>
           <Button appearance="primary" type="submit" loading={loading} disabled={loading}>
             Salvar Alterações
           </Button>
           <Button appearance="default" onClick={() => navigate("/perfil")} style={{ marginLeft: 10 }}>
             Cancelar
+          </Button>
+        </Form.Group>
+        <Form.Group>
+          <Button appearance="danger" onClick={handleDeleteAccount} style={{ marginTop: 20 }}>
+            Excluir Conta
           </Button>
         </Form.Group>
       </Form>

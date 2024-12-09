@@ -22,30 +22,6 @@ function Home() {  //renderiza
       ]}></Header>
       <BannerRSuite></BannerRSuite>
 
-      <Container> 
-        
-      <h2 className={styles.heading}>Produtos</h2>
-      <section className="cards">
-        <Card></Card> {/*depois passa os parametros pra mudar cada parte, etc., altera a função tambem pra receber*/}
-        <Card></Card>
-        <Card></Card>
-      </section>
-
-      <h2>Moradia</h2>
-      <section className="cards">
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-      </section>
-
-      <h2>Serviços</h2>
-      <section className="cards">
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-      </section>
-
-      </Container>
       <Footer></Footer>
     </>
   );

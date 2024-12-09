@@ -10,7 +10,7 @@ function ProfileSider() {
         <Container className={styles.profileSider}>
             <Avatar
                 circle
-                src="https://wallpapers.com/images/high/best-profile-pictures-x936iuuogvln5oxj.webp"
+                src="https://img.myloview.com.br/adesivos/usuario-icone-linear-ilustracao-vetorial-isolada-no-fundo-branco-700-154081922.jpg"
                 size="lg"
                 style={{ marginBottom: 15 }}
             />
