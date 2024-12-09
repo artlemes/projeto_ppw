@@ -5,8 +5,8 @@ import MenuDropdownUsuario from "../MenuDropdownUsuario";
 function Header() {
     return (
         <header className={styles.header}>
-            <Link to="/listagem">
-                <img src="/images/logopgw.png" alt="Logo" />
+            <Link to="/listagem" style={{cursor:"default"}}>
+                <img src="/images/logopgw.png" alt="Logo" style={{cursor:"pointer"}}/>
             </Link>
 
             <div>
