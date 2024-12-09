@@ -30,12 +30,6 @@ function ListagemDeAnuncios() {
             {/* Header */}
             <Header></Header>
 
-            {/* Conteúdo principal */}
-            <div className="titulo">
-                <h3>Anúncios encontrados</h3>
-                <p>Categoria tal, pode conter algum tipo de filtro aqui ou algo assim</p>
-            </div>
-
             {/* Filtros */}
             <div className="filtros">
                 <select
