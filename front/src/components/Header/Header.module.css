@@ -19,3 +19,7 @@
 .header img {
     height: 75px;
 }
+
+.header img:hover {
+    opacity: 0.8;
+}

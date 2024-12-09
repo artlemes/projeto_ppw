@@ -14,7 +14,7 @@ function MenuDropdownUsuario() {
                 navigate("/perfil", { replace: true });
                 break;
             case "settings":
-                navigate("/teste", { replace: true });
+                navigate("/perfil/editar", { replace: true });
                 console.log("Abrir configurações");
                 break;
             case "logout":

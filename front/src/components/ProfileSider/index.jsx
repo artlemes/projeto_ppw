@@ -20,8 +20,8 @@ function ProfileSider() {
             <Divider />
             <Nav vertical>
                 <Nav.Item>
-                    <Button block appearance="primary" onClick={() => navigate("/listagem")}>
-                        Anúncios Disponíveis
+                    <Button block appearance="primary" onClick={() => navigate("/perfil")}>
+                        Meus Anuncios
                     </Button>
                 </Nav.Item>
                 <Nav.Item>
@@ -30,7 +30,7 @@ function ProfileSider() {
                     appearance="default"
                     onClick={() => navigate("/perfil/editar")}
                     >
-                    Editar perfil
+                    Editar Perfil
                 </Button>
                 </Nav.Item>
             </Nav>

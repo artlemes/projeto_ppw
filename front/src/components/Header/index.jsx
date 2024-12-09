@@ -5,7 +5,7 @@ import MenuDropdownUsuario from "../MenuDropdownUsuario";
 function Header() {
     return (
         <header className={styles.header}>
-            <Link to="/">
+            <Link to="/listagem">
                 <img src="/images/logopgw.png" alt="Logo" />
             </Link>
 
