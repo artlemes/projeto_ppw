@@ -73,9 +73,13 @@ A aplicação segue a arquitetura **MVC (Model-View-Controller)** para organizar
 5. Acesse a aplicação:
    Abra o navegador e vá até `http://localhost:3000`
 
+## Link repositorio GitHub
+
+Link para o repositorio GitHub da aplicação: [Serviços UFSC](https://github.com/artlemes/projeto_ppw)
+
 ## Deploy
 
-A aplicação está disponível 24/7 no seguinte link: [Serviços UFSC](http://url-da-aplicacao.com)
+A aplicação está disponível 24/7 no seguinte link: [Serviços UFSC](https://servicosufsc.vercel.app/)
 
 ## Contribuições
 
