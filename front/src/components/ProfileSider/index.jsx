@@ -20,7 +20,7 @@ function ProfileSider() {
             <Divider />
             <Nav vertical>
                 <Nav.Item>
-                    <Button block appearance="primary" onClick={() => navigate("/criaranuncios")}>
+                    <Button block appearance="primary" onClick={() => navigate("/listagem")}>
                         Anúncios
                     </Button>
                 </Nav.Item>

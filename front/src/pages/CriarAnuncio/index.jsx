@@ -33,9 +33,12 @@ function CriarAnuncio() {
 
     useEffect(() => {
         const fetchCategorias = async () => {
-            const response = await sendData("categorias/buscar", null, "GET");
+            const response = await sendData("categoria/buscar", null, "GET");
             if (response) {
                 setCategorias(response.data); // Supondo que o endpoint retorna um array de categorias
+            }
+            else {
+                console.log('nao respondeu nada porra')
             }
         };
 
