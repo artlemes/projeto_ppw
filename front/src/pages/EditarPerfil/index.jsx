@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import styles from "./EditarPerfil.module.css";
 import { Form, Button, Schema, Panel, Message } from "rsuite";
 import { useNavigate } from "react-router-dom";
 import useSendData from "../../services/useSendData.js";
+import FormGroup from "rsuite/esm/FormGroup/FormGroup.js";
 
 function EditarPerfil() {
   const { sendData, loading, error, data } = useSendData(); 
@@ -73,6 +75,7 @@ function EditarPerfil() {
   }
 
   return (
+    <>
     <Panel header="Editar Perfil" bordered style={{ maxWidth: 600, margin: "auto", marginTop: "130px" }}>
       <Form
         fluid
@@ -100,21 +103,22 @@ function EditarPerfil() {
         {error && <Message type="error">{error.message}</Message>}
         {success && <Message type="success">Perfil atualizado com sucesso!</Message>}
         {deleteSuccess && <Message type="success">Conta excluída com sucesso. Redirecionando...</Message>}
-        <Form.Group>
-          <Button appearance="primary" type="submit" loading={loading} disabled={loading}>
+        <Form.Group className={styles.center} style={{height:50}}>
+          <Button appearance="primary" type="submit" loading={loading} disabled={loading} style={{ position: "absolute",left:0 }}>
             Salvar Alterações
           </Button>
-          <Button appearance="default" onClick={() => navigate("/perfil")} style={{ marginLeft: 10 }}>
+          <Button appearance="default" onClick={() => navigate("/perfil")} style={{ position: "absolute",right:0 }}>
             Cancelar
-          </Button>
-        </Form.Group>
-        <Form.Group>
-          <Button appearance="danger" onClick={handleDeleteAccount} style={{ marginTop: 20 }}>
-            Excluir Conta
           </Button>
         </Form.Group>
       </Form>
     </Panel>
+    <FormGroup className={styles.center}>
+      <Button appearance="primary" color="red" onClick={handleDeleteAccount} style={{ position: "",top:50 }}>
+      Excluir Conta
+      </Button>
+    </FormGroup>
+    </>
   );
 }
 
