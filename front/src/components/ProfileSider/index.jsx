@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 function ProfileSider() {
     const navigate = useNavigate();
 
+    const user = JSON.parse(localStorage.getItem("User"));
+
     return (
         <Container className={styles.profileSider}>
             <Avatar
@@ -14,7 +16,7 @@ function ProfileSider() {
                 size="lg"
                 style={{ marginBottom: 15 }}
             />
-            <h4>Nome do usuário</h4>
+            <h4>{user.nome}</h4>
             <Divider />
             <Nav vertical>
                 <Nav.Item>
