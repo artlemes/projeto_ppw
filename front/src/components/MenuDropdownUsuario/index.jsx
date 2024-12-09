@@ -29,9 +29,10 @@ function MenuDropdownUsuario() {
 
     return (
         <Dropdown
+            style={{right:"10px"}}
             placement="bottomEnd"
             renderToggle={(props, ref) => (
-                <Button {...props} ref={ref} appearance="subtle">
+                <Button {...props} ref={ref} appearance="" style={{padding: "2px",margin:"5px 29px",borderRadius:"1000px"}}>
                     <Avatar circle style={{ background: "#f56a00" }}>
                         {user['nome'].charAt(0).toUpperCase()}
                     </Avatar>

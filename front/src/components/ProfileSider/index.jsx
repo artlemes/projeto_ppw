@@ -19,12 +19,12 @@ function ProfileSider() {
             <h4>{user.nome}</h4>
             <Divider />
             <Nav vertical>
-                <Nav.Item>
-                    <Button block appearance="primary" onClick={() => navigate("/perfil")}>
+                <Nav.Item style={{padding:"0px 0px",margin: "15px 0px"}}>
+                    <Button block style={{border:"none"}} appearance="primary" onClick={() => navigate("/perfil")}>
                         Meus Anuncios
                     </Button>
                 </Nav.Item>
-                <Nav.Item>
+                <Nav.Item style={{padding:"0px 0px"}}>
                 <Button
                     block
                     appearance="default"
