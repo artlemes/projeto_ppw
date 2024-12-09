@@ -7,6 +7,7 @@ import styles from "./AnuncioUnico.module.css";
 
 function AnuncioUnico() {
     const [anuncio, setAnuncio] = useState(null);
+    const [usuarioCriador, setUsuario] = useState(null);
     const { id } = useParams();  // Pega o ID do anúncio da URL
     const navigate = useNavigate();
 
@@ -34,11 +35,34 @@ function AnuncioUnico() {
                 }
 
                 const data = await response.json();
-                console.log(data); // Verifique a resposta da API
 
                 // Agora, iterando sobre os dados corretamente:
                 const anuncioEncontrado = data.find((anuncio) => anuncio._id === id);
                 if (anuncioEncontrado) {
+                    let userId = anuncioEncontrado.usuario_id
+                    console.log('user id pelo anuncio')
+                    console.log(userId)
+
+                    const responseUsers = await fetch("https://bk-ti1x.onrender.com/usuario/buscar", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    });
+
+                    const dataUsers = await responseUsers.json();
+                    console.log('todos usuarios')
+                    console.log(dataUsers)
+
+                    for (let user of dataUsers) {
+                        console.log(user)
+                        if (user._id === userId) {
+                            console.log(user)
+                            setUsuario(user)
+                        }
+                    }
+
                     setAnuncio(anuncioEncontrado);  // Atualiza o estado com o anúncio encontrado
                 } else {
                     console.log("Anúncio não encontrado.");
@@ -81,6 +105,9 @@ function AnuncioUnico() {
                                 src={anuncio.imageUrl || "https://via.placeholder.com/150"} 
                                 alt={anuncio.titulo || "Imagem do anúncio"} 
                             />
+                            <p>Criador: {usuarioCriador.nome}</p>
+                            <p>Email: {usuarioCriador.email}</p>
+                            <p>Telefone: {usuarioCriador.telefone}</p>
                         </div>
                     </div>
                 </div>
